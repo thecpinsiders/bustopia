@@ -81,10 +81,29 @@ var database = {
                     ],
                 })
 
+                userSchema = schema({
+                    username: String,
+                    password: String,
+                    token: String
+                });
+
+                favserviceSchema = schema({
+                    username: String,
+                    services: String
+                });
+
+                favstopSchema = schema({
+                    username: String,
+                    stops: String
+                });
+
                 var connection = mongoose.connection;
                 eventModel = connection.model('events', eventSchema);
                 organizerModel = connection.model('organizers', organizerSchema);
                 serviceModel = connection.model('services', servicesSchema);
+                userModel = connection.model('users', userSchema);
+                favserviceModel = connection.model('favservices', favserviceSchema);
+                favstopModel = connection.model('favstops', favstopSchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
