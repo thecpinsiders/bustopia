@@ -42,44 +42,44 @@ var database = {
                     BusStopCode: String,
                     Services: [
                         {
-                    ServiceNo: String,
-                    Operator: String,
-                    NextBus: {
-                        OriginCode: String,
-                        DestinationCode: String,
-                        EstimatedArrival: String,
-                        Latitude: String,
-                        Longitude: String,
-                        VisitNumber: String,
-                        Load: String,
-                        Feature: String,
-                        Type: String
-                    },
-                    NextBus2: {
-                        OriginCode: String,
-                        DestinationCode: String,
-                        EstimatedArrival: String,
-                        Latitude: String,
-                        Longitude: String,
-                        VisitNumber: String,
-                        Load: String,
-                        Feature: String,
-                        Type: String
-                    },
-                    NextBus3: {
-                        OriginCode: String,
-                        DestinationCode: String,
-                        EstimatedArrival: String,
-                        Latitude: String,
-                        Longitude: String,
-                        VisitNumber: String,
-                        Load: String,
-                        Feature: String,
-                        Type: String
-                    },
-                }
-            ],
-        })
+                            ServiceNo: String,
+                            Operator: String,
+                            NextBus: {
+                                OriginCode: String,
+                                DestinationCode: String,
+                                EstimatedArrival: String,
+                                Latitude: String,
+                                Longitude: String,
+                                VisitNumber: String,
+                                Load: String,
+                                Feature: String,
+                                Type: String
+                            },
+                            NextBus2: {
+                                OriginCode: String,
+                                DestinationCode: String,
+                                EstimatedArrival: String,
+                                Latitude: String,
+                                Longitude: String,
+                                VisitNumber: String,
+                                Load: String,
+                                Feature: String,
+                                Type: String
+                            },
+                            NextBus3: {
+                                OriginCode: String,
+                                DestinationCode: String,
+                                EstimatedArrival: String,
+                                Latitude: String,
+                                Longitude: String,
+                                VisitNumber: String,
+                                Load: String,
+                                Feature: String,
+                                Type: String
+                            },
+                        }
+                    ],
+                })
 
                 var connection = mongoose.connection;
                 eventModel = connection.model('events', eventSchema);
@@ -90,7 +90,7 @@ var database = {
             }
         })
     },
-    
+
     getAllEvents: function (callback) {
         eventModel.find({}, callback);
     },
@@ -145,109 +145,110 @@ var database = {
     updateToken: function (id, token, callback) {
         organizerModel.findByIdAndUpdate(id, { token: token }, callback);
     },
-    checkToken: function(token,callback) {
-        organizerModel.findOne({token:token},callback);
+    checkToken: function (token, callback) {
+        organizerModel.findOne({ token: token }, callback);
     },
-    removeToken: function(id,callback) {
-        organizerModel.findByIdAndUpdate(id, {$unset: {token: 1}},callback);
-    },
-
-    getTimingForStop(busStop, callback) {
-		this.getData(busStop, payload => {
-            payload = payload.Services;
-			callback({
-				services: payload.map(service => service.ServiceNo),
-				timings: payload.reduce((timings, service) => {
-					function timingObj(service, type) {
-						var arrival = new Date(service[type].EstimatedArrival);
-						return {
-							arrival: arrival,
-							secondsToArrival: Math.floor(Math.max(0, (arrival - +new Date()) / 1000)),
-							load: service[type].Load,
-							isWAB: service[type].Feature === 'WAB'
-                        };
-                        
-					}
-					var types = ['NextBus', 'NextBus2', 'NextBus3'];
-					timings[service.ServiceNo] = {
-						availableBuses: service.NextBus.EstimatedArrival === '' ? 0 : service.NextBus2.EstimatedArrival === '' ? 1 : service.NextBus3.EstimatedArrival === '' ? 2 : 3,
-						buses: []
-					};
-					for (var i = 0; i < timings[service.ServiceNo].availableBuses; i++) {
-						timings[service.ServiceNo].buses.push(timingObj(service, types[i]))
-                    }
-					return timings;
-				}, {})
-			});
-		});
+    removeToken: function (id, callback) {
+        organizerModel.findByIdAndUpdate(id, { $unset: { token: 1 } }, callback);
     },
 
-    // getData(busStop, callback) {
-	// 	//if (this.options.request) this.options.request(busStop, callback);
-	// 	//else
-	// 		request({
-	// 			url: `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?${busStop}&SST=True`,
-	// 			headers: {
-	// 				'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-	// 			}
-	// 		}, (err, res) => {
-	// 				callback(JSON.parse(res.body));
-	// 		});
-	// }
-    
-	getData(busStop, callback) {
+    getData(busStop, callback) {
 
         var options = {
             'method': 'GET',
             'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=${busStop}`,
             'headers': {
-              'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+                'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
             }
-          };
-          request(options, function (error, response) {
-            if (error) throw new Error(error);
-            else
-            callback(JSON.parse(response.body));
-            //console.log(response.body);
-            
-            
-          });
-        }
+        };
+        request(options, function (error, response) {
+            if (error) { throw new Error(error) }
+            else {
+                //console.log(response.body);
+                return callback(null, JSON.parse(response.body))
+            }
+        });
+    },
 
-       // apiKey = "b+8pVHKwRkyLKABbXVxmpQ==";
-       // if (!apiKey || typeof apiKey !== 'string') throw new TypeError('API Key must be a string!');
-		//this.apiKey = apiKey;
-		//this.options = Object.assign({
-		//	requester: null
-       // }, options || {});
-        
+    getTimingForStop(busStop, callback) {
+        this.getData(busStop, payload => {
+            payload = payload.Services;
+            callback({
+                services: payload.map(service => service.ServiceNo),
+                timings: payload.reduce((timings, service) => {
+                    function timingObj(service, type) {
+                        var arrival = new Date(service[type].EstimatedArrival);
+                        return {
+                            arrival: arrival,
+                            secondsToArrival: Math.floor(Math.max(0, (arrival - +new Date()) / 1000)),
+                            load: service[type].Load,
+                            isWAB: service[type].Feature === 'WAB'
+                        };
 
-        // var options = {
-        //     'method': 'GET',
-        //     'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=${busStop}&SST=True`,
-        //      'headers': {
-        //        'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-        //     }
-        //   };
-        //   request(options, function (error, response) {
-        //     if (error) throw new Error(error);
-        //     //console.log(response.body);
-        //     else
-        //     callback(JSON.parse(response.body));
-        //   });
+                    }
+                    var types = ['NextBus', 'NextBus2', 'NextBus3'];
+                    timings[service.ServiceNo] = {
+                        availableBuses: service.NextBus.EstimatedArrival === '' ? 0 : service.NextBus2.EstimatedArrival === '' ? 1 : service.NextBus3.EstimatedArrival === '' ? 2 : 3,
+                        buses: []
+                    };
+                    for (var i = 0; i < timings[service.ServiceNo].availableBuses; i++) {
+                        timings[service.ServiceNo].buses.push(timingObj(service, types[i]))
+                    }
+                    return timings;
+                }, {})
+            });
+        });
+    },
 
-          
-		//if (this.options.requester) this.options.requester(busStop, callback);
-		//else
-//         request({
-//             			url: `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?${busStop}&SST=True`,
-//             			headers: {
-//             				'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-//             			}
-//             		}, (err, res) => {
-//             				callback(JSON.parse(res.body));
-//             		});
-// }
+    // getData(busStop, callback) {
+    // 	//if (this.options.request) this.options.request(busStop, callback);
+    // 	//else
+    // 		request({
+    // 			url: `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?${busStop}&SST=True`,
+    // 			headers: {
+    // 				'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+    // 			}
+    // 		}, (err, res) => {
+    // 				callback(JSON.parse(res.body));
+    // 		});
+    // }
+
+
+
+    // apiKey = "b+8pVHKwRkyLKABbXVxmpQ==";
+    // if (!apiKey || typeof apiKey !== 'string') throw new TypeError('API Key must be a string!');
+    //this.apiKey = apiKey;
+    //this.options = Object.assign({
+    //	requester: null
+    // }, options || {});
+
+
+    // var options = {
+    //     'method': 'GET',
+    //     'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=${busStop}&SST=True`,
+    //      'headers': {
+    //        'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+    //     }
+    //   };
+    //   request(options, function (error, response) {
+    //     if (error) throw new Error(error);
+    //     //console.log(response.body);
+    //     else
+    //     callback(JSON.parse(response.body));
+    //   });
+
+
+    //if (this.options.requester) this.options.requester(busStop, callback);
+    //else
+    //         request({
+    //             			url: `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?${busStop}&SST=True`,
+    //             			headers: {
+    //             				'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+    //             			}
+    //             		}, (err, res) => {
+    //             				callback(JSON.parse(res.body));
+    //             		});
+    // }
 };
 
 module.exports = database;

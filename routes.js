@@ -180,13 +180,13 @@ var routes = function () {
 
     router.get('/getbusarrival', function (req, res) {
         var data = req.body;
-        db.getTimingForStop(data.busStop, function(err,busStop){
+        db.getData(data.busStop, function(err,service){
             if (err) {
-                console.log(busStop);
-                console.log(data.busStop);
+                //console.log(service);
+                console.log(data.service);
                 res.status(500).send("Unable to get bus information");
             } else {
-                res.status(200).send(busStop);
+                res.status(200).send(service);
             }
         })
     })
