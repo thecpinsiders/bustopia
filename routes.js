@@ -12,7 +12,7 @@ var routes = function () {
         extended: true
     }));
 
-//YO
+
     // var options = {
     //   'method': 'GET',
     //   'url': 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=44009',
@@ -137,27 +137,27 @@ var routes = function () {
 
     router.post('/register', function (req, res) {
         var data = req.body;
-        db.addOrganizer(data.name,data.username, data.password, data.company, function (err, organizer) {
+        db.addUser(data.username, data.password, function (err, user) {
             if (err) {
-                res.status(500).send("Unable to register a new organizer");
+                res.status(500).send("Unable to register a new user");
             } else {
-                res.status(200).send("Organizer has been registered!");
+                res.status(200).send("User has been successfully registered!");
             }
         })
     })
 
     router.post('/login', function (req, res) {
         var data = req.body;
-        db.login(data.username, data.password, function (err, organizer) {
+        db.login(data.username, data.password, function (err, user) {
             if (err) {
                 res.status(401).send("Login unsucessful. Please try again later");
             } else {
-                if (organizer == null) {
+                if (user == null) {
                     res.status(401).send("Login unsucessful. Please try again later");
                 } else {
-                    var strToHash = organizer.username + Date.now();
+                    var strToHash = user.username + Date.now();
                     var token = crypto.createHash('md5').update(strToHash).digest('hex');
-                    db.updateToken(organizer._id, token, function (err, organizer) {
+                    db.updateToken(user._id, token, function (err, user) {
                         res.status(200).json({ 'message': 'Login successful.', 'token': token });
                     });
                 }
@@ -171,11 +171,11 @@ var routes = function () {
         if (token == undefined) {
             res.status(401).send("No tokens are provided");
         } else {
-            db.checkToken(token, function (err, organizer) {
-                if (err || organizer == null) {
+            db.checkToken(token, function (err, user) {
+                if (err || user == null) {
                     res.status(401).send("Invalid token provided");
                 } else {
-                    db.removeToken(organizer._id, function (err, user) {
+                    db.removeToken(user._id, function (err, user) {
                         res.status(200).send("Logout successfully")
                     });
                 }
@@ -212,23 +212,32 @@ var routes = function () {
     })
 
     //Search for Bus Route via service number e.g 190.
-    router.get('/api/getserviceroute', function (req, res) {
-        
-    })
-
-
-    router.get('/api/getbusarrival', function (req, res) {
+    router.post('/getserviceroute', function (req, res) {
         var data = req.body;
-        db.getData(data.busStop, function(err,service){
+        db.getData(data.BusNumber, function(err,service){
             if (err) {
                 //console.log(service);
                 console.log(data.service);
-                res.status(500).send("Unable to get bus information");
+                res.status(500).send("Unable to get bus number information");
             } else {
                 res.status(200).send(service);
             }
         })
     })
+
+
+    // router.get('/api/getbusarrival', function (req, res) {
+    //     var data = req.body;
+    //     db.getData(data.busStop, function(err,service){
+    //         if (err) {
+    //             //console.log(service);
+    //             console.log(data.service);
+    //             res.status(500).send("Unable to get bus information");
+    //         } else {
+    //             res.status(200).send(service);
+    //         }
+    //     })
+    // })
 
     router.post('/getbusarrival', function (req, res) {
         var data = req.body;
@@ -236,24 +245,13 @@ var routes = function () {
             if (err) {
                 //console.log(service);
                 console.log(data.service);
-                res.status(500).send("Unable to get bus information");
+                res.status(500).send("Unable to get bus arrival information");
             } else {
                 res.status(200).send(service);
             }
         })
     })
 
-    // router.get('/getbusarrival/?=:busstop', function (req, res) {
-    //         var data = req.params.busstop;
-    //         db.getData(data, function (err, service) {
-    //             if (err) {
-    //                 console.log(data.service);
-    //                 res.status(500).send("Unable to get bus information");
-    //             } else {
-    //                 res.status(200).send(service);
-    //             }
-    //         })
-    //     })
 
     return router;
 };

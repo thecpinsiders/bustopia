@@ -149,26 +149,24 @@ var database = {
     deleteEvent: function (id, callback) {
         eventModel.findByIdAndDelete(id, callback);
     },
-    addOrganizer: function (n, un, p, c, callback) {
-        var newOrganizer = new organizerModel({
-            name: n,
+    addUser: function (un, p, callback) {
+        var newUser = new userModel({
             username: un,
-            password: p,
-            company: c
+            password: p
         });
-        newOrganizer.save(callback);
+        newUser.save(callback);
     },
     login: function (u, p, callback) {
-        organizerModel.findOne({ username: u, password: p }, callback);
+        userModel.findOne({ username: u, password: p }, callback);
     },
     updateToken: function (id, token, callback) {
-        organizerModel.findByIdAndUpdate(id, { token: token }, callback);
+        userModel.findByIdAndUpdate(id, { token: token }, callback);
     },
     checkToken: function (token, callback) {
-        organizerModel.findOne({ token: token }, callback);
+        userModel.findOne({ token: token }, callback);
     },
     removeToken: function (id, callback) {
-        organizerModel.findByIdAndUpdate(id, { $unset: { token: 1 } }, callback);
+        userModel.findByIdAndUpdate(id, { $unset: { token: 1 } }, callback);
     },
 
     getData(busStop, callback) {
