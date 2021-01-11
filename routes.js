@@ -49,6 +49,9 @@ var routes = function () {
     router.get('/favorites', function (req, res) {
         res.sendFile(__dirname + "/views/favorites.html");
     });
+    router.get('/homepage', function (req, res) {
+        res.sendFile(__dirname + "/views/homepage.html");
+    });
     router.get('/results', function (req, res) {
         res.sendFile(__dirname + "/views/results.html");
     });
@@ -198,6 +201,7 @@ var routes = function () {
 
     })
 
+
     //Search for Bus Route via service number e.g 190.
     router.post('/getserviceroute', function (req, res) {
         var data = req.body;
@@ -225,6 +229,18 @@ var routes = function () {
         })
     })
 
+    router.get('/getbusservices', function (req, res) {
+        //var data = req.body;
+        db.getBusServices(function (err, service) {
+            if (err) {
+                //console.log(service);
+                //console.log(data.service);
+                res.status(500).send("Unable to get bus service information");
+            } else {
+                res.status(200).send(service);
+            }
+        })
+    })
 
     return router;
 };

@@ -10,20 +10,21 @@
     <header>
         <nav>
             <li><a href="/">Home Page</a></li>
-            <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li>
-            <li><a href="#" class="logoutLink">Logout</a></li>
         </nav>
     </header>
     <section>
-            <form action="getbusarrival" method="POST">  
-            <label for="BusStopCode">Bus stop Number:</label>
-            <input type="text" id="BusStopCode" name="BusStopCode"><br>
-            <input type="submit" value="Submit">
+        <!-- calls login function in auth.js -->
+        <form onsubmit="return login();">
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br>
+            <input type="submit" value="Login">
         </form>
-
-
     </section>
+    <script src="/js/auth.js"></script>
+    <div class="statusMessage"></div>
     <!-- <section class="events">
 
     </section>

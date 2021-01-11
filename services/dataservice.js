@@ -216,6 +216,35 @@ var database = {
             });
         });
     },
+
+    getBusServiceData(callback) {
+            var options = {
+                'method': 'GET',
+                'url': `http://datamall2.mytransport.sg/ltaodataservice/BusServices`,
+                'headers': {
+                    'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+                }
+            };
+            request(options, function (error, response) {
+                if (error) { throw new Error(error) }
+                else {
+                //console.log(response.body);
+                    return callback(null, JSON.parse(response.body))
+                }
+            });
+    },
+
+    getBusServices(page, callback) {
+        this.getBusServiceData(page, payload => {
+            var services = payload.value;
+            callback(services.map(e => {return {
+                serviceNo: e.ServiceNo,
+                operator: e.Operator,
+                serviceType: e.Category,
+                direction: e.Direction
+            }}));
+        });
+    },
 };
 
 module.exports = database;

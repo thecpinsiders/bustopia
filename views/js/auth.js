@@ -33,6 +33,7 @@ function login() {
     .done(function(data){
         $(".statusMessage").text(data.message);
         sessionStorage.authToken=data.token;
+        window.location.href="/homepage";
     })
     .fail(function(err){
         $(".statusMessage").text(err.responseText);
