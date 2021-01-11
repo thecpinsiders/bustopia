@@ -12,23 +12,10 @@ var routes = function () {
         extended: true
     }));
 
-
-    // var options = {
-    //   'method': 'GET',
-    //   'url': 'http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=44009',
-    //   'headers': {
-    //     'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-    //   }
-    // };
-    // request(options, function (error, response) {
-    //   if (error) throw new Error(error);
-    //   console.log(response.body);
-    // });
-
-    router.use(function(req,res,next){
+    router.use(function (req, res, next) {
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
-        if(req.method=="PUT" || req.method=="DELETE"
-            || (req.method=="POST" && req.url.includes("/events"))) {
+        if (req.method == "PUT" || req.method == "DELETE"
+            || (req.method == "POST" && req.url.includes("/events"))) {
             var token = req.query.token;
             if (token == undefined) {
                 res.status(401).send("No tokens are provided. You are not allowed to perform this action.");
@@ -65,12 +52,12 @@ var routes = function () {
     router.get('/results', function (req, res) {
         res.sendFile(__dirname + "/views/results.html");
     });
-    router.get('/css/*', function(req, res)  {
-        res.sendFile(__dirname+"/views/"+req.originalUrl);
+    router.get('/css/*', function (req, res) {
+        res.sendFile(__dirname + "/views/" + req.originalUrl);
     });
-    
-    router.get('/js/*', function(req, res)  {
-        res.sendFile(__dirname+"/views/"+req.originalUrl);
+
+    router.get('/js/*', function (req, res) {
+        res.sendFile(__dirname + "/views/" + req.originalUrl);
     });
 
     // router.get('/events', function (req, res) {
@@ -184,37 +171,37 @@ var routes = function () {
     })
 
     //Set the bus services of choice as favourite
-    router.put('/api/savefavouritebus', function(req,res){
-        
+    router.put('/api/savefavouritebus', function (req, res) {
+
     })
 
     //Set the bus stop of choice as favourite
-    router.put('/api/savefavouritebustop', function(req,res){
+    router.put('/api/savefavouritebustop', function (req, res) {
 
     })
 
     //Search bus route via bus number
     router.post('/api/searchbusroute', function (req, res) {
-        
+
     })
     //Search for Bus Services by bus stop name e.g Orchard MRT Station
     router.post('/api/searchstopname', function (req, res) {
-        
+
     })
     //Search for Bus stops via bus stop number
     router.post('/api/searchstopnumber', function (req, res) {
-        
+
     })
 
     //View Bus Service information like First bus,Last bus and what operator operates that bus service
     router.get('/api/getserviceinfo', function (req, res) {
-        
+
     })
 
     //Search for Bus Route via service number e.g 190.
     router.post('/getserviceroute', function (req, res) {
         var data = req.body;
-        db.getData(data.BusNumber, function(err,service){
+        db.getData(data.BusNumber, function (err, service) {
             if (err) {
                 //console.log(service);
                 console.log(data.service);
@@ -225,23 +212,9 @@ var routes = function () {
         })
     })
 
-
-    // router.get('/api/getbusarrival', function (req, res) {
-    //     var data = req.body;
-    //     db.getData(data.busStop, function(err,service){
-    //         if (err) {
-    //             //console.log(service);
-    //             console.log(data.service);
-    //             res.status(500).send("Unable to get bus information");
-    //         } else {
-    //             res.status(200).send(service);
-    //         }
-    //     })
-    // })
-
     router.post('/getbusarrival', function (req, res) {
         var data = req.body;
-        db.getData(data.BusStopCode, function(err,service){
+        db.getData(data.BusStopCode, function (err, service) {
             if (err) {
                 //console.log(service);
                 console.log(data.service);

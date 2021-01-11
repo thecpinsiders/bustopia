@@ -216,56 +216,6 @@ var database = {
             });
         });
     },
-
-    // getData(busStop, callback) {
-    // 	//if (this.options.request) this.options.request(busStop, callback);
-    // 	//else
-    // 		request({
-    // 			url: `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?${busStop}&SST=True`,
-    // 			headers: {
-    // 				'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-    // 			}
-    // 		}, (err, res) => {
-    // 				callback(JSON.parse(res.body));
-    // 		});
-    // }
-
-
-
-    // apiKey = "b+8pVHKwRkyLKABbXVxmpQ==";
-    // if (!apiKey || typeof apiKey !== 'string') throw new TypeError('API Key must be a string!');
-    //this.apiKey = apiKey;
-    //this.options = Object.assign({
-    //	requester: null
-    // }, options || {});
-
-
-    // var options = {
-    //     'method': 'GET',
-    //     'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?BusStopID=${busStop}&SST=True`,
-    //      'headers': {
-    //        'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-    //     }
-    //   };
-    //   request(options, function (error, response) {
-    //     if (error) throw new Error(error);
-    //     //console.log(response.body);
-    //     else
-    //     callback(JSON.parse(response.body));
-    //   });
-
-
-    //if (this.options.requester) this.options.requester(busStop, callback);
-    //else
-    //         request({
-    //             			url: `http://datamall2.mytransport.sg/ltaodataservice/BusArrival?${busStop}&SST=True`,
-    //             			headers: {
-    //             				'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-    //             			}
-    //             		}, (err, res) => {
-    //             				callback(JSON.parse(res.body));
-    //             		});
-    // }
 };
 
 module.exports = database;
