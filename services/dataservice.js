@@ -187,35 +187,35 @@ var database = {
         });
     },
 
-    getTimingForStop(busStop, callback) {
-        this.getData(busStop, payload => {
-            payload = payload.Services;
-            callback({
-                services: payload.map(service => service.ServiceNo),
-                timings: payload.reduce((timings, service) => {
-                    function timingObj(service, type) {
-                        var arrival = new Date(service[type].EstimatedArrival);
-                        return {
-                            arrival: arrival,
-                            secondsToArrival: Math.floor(Math.max(0, (arrival - +new Date()) / 1000)),
-                            load: service[type].Load,
-                            isWAB: service[type].Feature === 'WAB'
-                        };
+    // getTimingForStop(busStop, callback) {
+    //     this.getData(busStop, payload => {
+    //         payload = payload.Services;
+    //         callback({
+    //             services: payload.map(service => service.ServiceNo),
+    //             timings: payload.reduce((timings, service) => {
+    //                 function timingObj(service, type) {
+    //                     var arrival = new Date(service[type].EstimatedArrival);
+    //                     return {
+    //                         arrival: arrival,
+    //                         secondsToArrival: Math.floor(Math.max(0, (arrival - +new Date()) / 1000)),
+    //                         load: service[type].Load,
+    //                         isWAB: service[type].Feature === 'WAB'
+    //                     };
 
-                    }
-                    var types = ['NextBus', 'NextBus2', 'NextBus3'];
-                    timings[service.ServiceNo] = {
-                        availableBuses: service.NextBus.EstimatedArrival === '' ? 0 : service.NextBus2.EstimatedArrival === '' ? 1 : service.NextBus3.EstimatedArrival === '' ? 2 : 3,
-                        buses: []
-                    };
-                    for (var i = 0; i < timings[service.ServiceNo].availableBuses; i++) {
-                        timings[service.ServiceNo].buses.push(timingObj(service, types[i]))
-                    }
-                    return timings;
-                }, {})
-            });
-        });
-    },
+    //                 }
+    //                 var types = ['NextBus', 'NextBus2', 'NextBus3'];
+    //                 timings[service.ServiceNo] = {
+    //                     availableBuses: service.NextBus.EstimatedArrival === '' ? 0 : service.NextBus2.EstimatedArrival === '' ? 1 : service.NextBus3.EstimatedArrival === '' ? 2 : 3,
+    //                     buses: []
+    //                 };
+    //                 for (var i = 0; i < timings[service.ServiceNo].availableBuses; i++) {
+    //                     timings[service.ServiceNo].buses.push(timingObj(service, types[i]))
+    //                 }
+    //                 return timings;
+    //             }, {})
+    //         });
+    //     });
+    // },
 
     getBusServiceData(callback) {
             var options = {

@@ -52,9 +52,9 @@ var routes = function () {
     router.get('/homepage', function (req, res) {
         res.sendFile(__dirname + "/views/homepage.html");
     });
-    router.get('/getbusarrival', function (req, res) {
-        res.sendFile(__dirname + "/views/getbusarrival.html");
-    });
+    // router.get('/getbusarrival', function (req, res) {
+    //     res.sendFile(__dirname + "/views/getbusarrival.html");
+    // });
     router.get('/results', function (req, res) {
         res.sendFile(__dirname + "/views/results.html");
     });

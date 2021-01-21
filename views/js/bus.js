@@ -9,15 +9,18 @@ $(document).ready(function() {
     }).done(
         function (data) {
             data.forEach(function(event) {
-                $(".busarrival").append(`
+                $(".Busarrival").append(`
                     <article>
                     <h2>${data.BusStopCode}</h2>
                     <div>
-                    ${data.Services.ServiceNo}
-                        ${event.description}<br>
-                        Start: ${event.start.date} ${event.start.time}<br>
-                        End: ${event.end.date} ${event.end.time}<br>
-                        Organized by: ${event.organizer.name} from ${event.organizer.company}<br>
+                        Bus Service:${data.Services.ServiceNo}<br>
+                        Bus Operator: ${data.Services.Operator}<br>
+                        Bus origin code: ${data.Services.NextBus.OriginCode}<br>
+                        Bus Destination code: ${data.Services.NextBus.DestinationCode}<br>
+                        Arrival timing: ${data.Services.NextBus.EstimatedArrival}<br>
+                        Visit number: ${data.Services.NextBus.VisitNumber}<br>
+                        Bus load: ${data.Services.NextBus.Load}<br>
+                        Bus Type: ${data.Services.NextBus.Type}<br>
                     </div>
                     </article>
                 `);
