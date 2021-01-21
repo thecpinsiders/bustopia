@@ -229,7 +229,7 @@ var database = {
                 if (error) { throw new Error(error) }
                 else {
                 //console.log(response.body);
-                    return callback(null, JSON.parse(response.body))
+                    return callback(null, jQuery.parseJSON(response))
                 }
             });
     },
