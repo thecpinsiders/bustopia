@@ -6,12 +6,13 @@ $(document).ready(function() {
     $.ajax({
         url: "/getbusarrival",
         method: "get"
+        //add in parameter here
     }).done(
         function (data) {
-            data.forEach(function(event) {
+            data.Services.foreach(function(service) {
                 $(".Busarrival").append(`
                     <article>
-                    <h2>${data.BusStopCode}</h2>
+                    <h2>${service.BusStopCode}</h2>
                     <div>
                         Bus Service:${data.Services.ServiceNo}<br>
                         Bus Operator: ${data.Services.Operator}<br>
@@ -59,21 +60,49 @@ $(document).ready(function() {
         }
     );
 
-    $(".deleteEventBtn").on('click', function() {
-        $.ajax(
-            {
-                url: '/events/'+eventId+"?token="+sessionStorage.authToken,
-                method: 'delete'
-            }
-        ).done(
-            function (data) {
-                alert("Event deleted!");
-                window.location.href = "/";
-            }
-        ).fail(
-            function (err) {
-                console.log(err.responseText);
-            }
-        );
-    });
+    
+function getbusarrival() {
+    var newEvent = {
+        name: $("#name").val(),
+        description: $("#description").val(),
+        startDate: $("#startDate").val(),
+        startTime: $("#startTime").val(),
+        endDate: $("#endDate").val(),
+        endTime: $("#endTime").val()
+    };
+
+    $.ajax({
+        url:"/events?token="+sessionStorage.authToken,
+        method:"POST",
+        data: newEvent
+    })
+    .done(function(data){
+        $(".statusMessage").text(data);
+        setTimeout(function(){
+            location.reload();
+        },3000);
+    })
+    .fail(function(err){
+        $(".statusMessage").text("Unable to add new event");
+    })
+    return false;
+}
+
+//     $(".deleteEventBtn").on('click', function() {
+//         $.ajax(
+//             {
+//                 url: '/events/'+eventId+"?token="+sessionStorage.authToken,
+//                 method: 'delete'
+//             }
+//         ).done(
+//             function (data) {
+//                 alert("Event deleted!");
+//                 window.location.href = "/";
+//             }
+//         ).fail(
+//             function (err) {
+//                 console.log(err.responseText);
+//             }
+//         );
+//     });
 });
