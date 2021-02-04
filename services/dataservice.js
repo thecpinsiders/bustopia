@@ -13,7 +13,7 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.set('debug',true);
+mongoose.set('debug', true);
 
 var database = {
     connect: function () {
@@ -135,10 +135,16 @@ var database = {
     getEvent: function (id, callback) {
         eventModel.findById(id, callback);
     },
-    getBusArrival:function(busstopcode,callback){
+    getBusArrival: function (busstopcode, callback) {
         // serviceModel.findById(id, callback);
         serviceModel.findOne({ BusStopCode: busstopcode }, callback);
     },
+
+    getAllBusArrivals: function (callback) {
+        // serviceModel.findById(id, callback);
+        serviceModel.find({}, callback);
+    },
+
     updateEvent: function (id, n, d, sd, st, ed, et, callback) {
         var updatedEvent = {
             name: n,
@@ -243,17 +249,17 @@ var database = {
     //         });
     // },
 
-//     getBusServices(page, callback) {
-//         this.getBusServiceData(page, payload => {
-//             var services = payload.value;
-//             callback(services.map(e => {return {
-//                 serviceNo: e.ServiceNo,
-//                 operator: e.Operator,
-//                 serviceType: e.Category,
-//                 direction: e.Direction
-//             }}));
-//         });
-//     },
+    //     getBusServices(page, callback) {
+    //         this.getBusServiceData(page, payload => {
+    //             var services = payload.value;
+    //             callback(services.map(e => {return {
+    //                 serviceNo: e.ServiceNo,
+    //                 operator: e.Operator,
+    //                 serviceType: e.Category,
+    //                 direction: e.Direction
+    //             }}));
+    //         });
+    //     },
 };
 
 module.exports = database;

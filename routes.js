@@ -194,11 +194,21 @@ var routes = function () {
     //     })
     // })
     router.get('/getbusarrival', function (req, res) {
-        var BusStopCode = req.query.BusStopCode;
+        var BusStopCode = req.params.BusStopCode;
         console.log(BusStopCode);
         db.getBusArrival(BusStopCode, function (err, arrival) {
             if (err) {
                 res.status(401).send("unable to get arrival timing with the provided bus stop code");
+            } else {
+                res.status(200).send(arrival);
+            }
+        });
+    });
+
+    router.get('/getallbusarrivals', function (req, res) {
+        db.getAllBusArrivals(function (err, arrival) {
+            if (err) {
+                res.status(401).send("unable to get arrival timing");
             } else {
                 res.status(200).send(arrival);
             }

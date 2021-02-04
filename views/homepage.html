@@ -18,19 +18,19 @@
 
     <section>
         <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
-        <form onsubmit="return getbusarrival();"> 
+        <form onsubmit="return getbusarrival();">
             <label for="BusStopCode">Bus stop Number:</label>
             <input type="text" id="BusStopCode" name="BusStopCode"><br>
             <input type="submit" value="Submit">
         </form>
     </section>
-
-    <section class="Busarrival">
+    <div class="statusMessage"></div>
+    <section id="bs">
 
     </section>
+    <script src="/js/bus.js"></script>
     <script src='/js/jquery.min.js'></script>
     <script src="/js/auth.js"></script>
-    <script src="/js/bus.js"></script>
 </body>
 
 </html>

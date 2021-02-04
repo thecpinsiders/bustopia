@@ -1,53 +1,94 @@
-$(document).ready(function () {
-    getbusarrival()
-    $.ajax({
-        url: "/getbusarrival",
-        method:"get"
-    })
-    .done(function(data){
-        data.forEach(function(arrival) {
-            $(".Busarrival").append(`
-            <article class='busarrvial'>
-            <b>${arrival.BusStopCode}</b><br><br> hello!
-            Date of rental: ${rental.date}<br>
-            Rented by: ${rental.rentedBy}<br><br>
-            <button rid='${rental._id}' class='editBtn'>Edit rental date</button>
-            <aside id='${rental._id}'>
-                <form action='/updateRentalDate' method='post'>
-                <input type='hidden' value='${rental._id}' name='rentalid'>
-                New rental date: <input type='text' name='date'></input><button type='submit'>Update</button>
-                </form>
-            </aside>
-            `);
-        });
-    })
-})
+// $(document).ready(function () {
+//     // var urlParams = new URLSearchParams(window.location.search);
+//     // eventId = urlParams.get('id');
+//     // alert("HELLOW!");
+//     // $.ajax({
+//     //     url: "/getallbusarrivals",
+//     //     method: "get"
+//     // }).done(
+//     //     function (data) {
+//     //         $('#BusStopCode').val(data.BusStopCode);
+//     //         // $('#description').val(data.description);
+//     //         // $('#startDate').val(data.start.date);
+//     //         // $('#startTime').val(data.start.time);
+//     //         // $('#endDate').val(data.end.date);
+//     //         // $('#endTime').val(data.end.time);
+//     //     }
+//     // ).fail(
+//     //     function (err) {
+//     //         console.log(err.responseText);
+//     //     }
 
-function getbusarrival(){
-    var BusStopCode = new URLSearchParams(window.location.search);
-    BusStopCode = BusStopCode.get('BusStopCode');    
-    $.ajax({
-        url: "/getbusarrival" + BusStopCode,
-        method:"get"
-    })
-    .done(function(data){
-        data.forEach(function(arrival) {
-            $(".Busarrival").append(`
-            <article class='busarrvial'>
-            <b>${arrival.BusStopCode}</b><br><br> hello!
-            Date of rental: ${rental.date}<br>
-            Rented by: ${rental.rentedBy}<br><br>
-            <button rid='${rental._id}' class='editBtn'>Edit rental date</button>
-            <aside id='${rental._id}'>
-                <form action='/updateRentalDate' method='post'>
-                <input type='hidden' value='${rental._id}' name='rentalid'>
-                New rental date: <input type='text' name='date'></input><button type='submit'>Update</button>
-                </form>
-            </aside>
-            `);
-        });
-    })
+
+//     // var BusStopCode = new URLSearchParams(window.location.search);
+//     // BusStopCode = BusStopCode.get('BusStopCode');
+//     // getbusarrival();
+//     // getallbusarrivals();
+//     // )
+// });
+function getTicker() {
+    var ticker = document.getElementById('#BusStopCode').value;
 }
+function getbusarrival() {
+    var credentials = {
+        BusStopCode: $("#BusStopCode").val()
+    }
+    $.ajax({
+        url: "/getbusarrival" + getTicker().ticker,
+        method: "get",
+        data: credentials
+    })
+        .done(function (data) {
+            $('#bs').text(data.BusStopCode);
+        })
+        .fail(function (err) {
+            console.log(err.responseText);
+            $(".statusMessage").text(err.responseText);
+        })
+    return false;
+}
+
+// function getbusarrival() {
+//     console.log("in function")
+//     $.ajax({
+//         url: "/getbusarrival/" + BusStopCode,
+//         method: "get"
+//     })
+//         .done(function (data) {
+//             data.forEach(function (arrival) {
+//                 $(".busarrival").append(`
+//             <article class='busarrival'>
+//             <b>${arrival.BusStopCode}</b>
+//             </article>
+//             `);
+//             });
+//         }).fail(
+//             function (err) {
+//                 console.log(err.responseText);
+//             }
+//         );
+// }
+
+// function getallbusarrival() {
+//     console.log("in function")
+//     $.ajax({
+//         url: "/getallbusarrivals",
+//         method: "get"
+//     })
+//         .done(function (data) {
+//             data.forEach(function (arrival) {
+//                 $(".busarrival").append(`
+//             <article class='busarrival'>
+//             <b>${arrival.BusStopCode}</b>
+//             </article>
+//             `);
+//             });
+//         }).fail(
+//             function (err) {
+//                 console.log(err.responseText);
+//             }
+//         );
+// }
 
 
 
@@ -126,7 +167,7 @@ function getbusarrival(){
 //         }
 //     );
 
-    
+
 // function getbusarrival() {
 //     var newBusStop = {
 //         BusStopCode: $("#BusStopCode").val(),
