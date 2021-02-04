@@ -1,14 +1,14 @@
 $(document).ready(function () {
+    getbusarrival()
     $.ajax({
-        url: "/homepage",
+        url: "/getbusarrival",
         method:"get"
     })
     .done(function(data){
-        alert("hello from inside");
         data.forEach(function(arrival) {
             $(".Busarrival").append(`
             <article class='busarrvial'>
-            <b>${arrival.BusStopCode}</b><br><br>
+            <b>${arrival.BusStopCode}</b><br><br> hello!
             Date of rental: ${rental.date}<br>
             Rented by: ${rental.rentedBy}<br><br>
             <button rid='${rental._id}' class='editBtn'>Edit rental date</button>
@@ -22,6 +22,32 @@ $(document).ready(function () {
         });
     })
 })
+
+function getbusarrival(){
+    var BusStopCode = new URLSearchParams(window.location.search);
+    BusStopCode = BusStopCode.get('BusStopCode');    
+    $.ajax({
+        url: "/getbusarrival" + BusStopCode,
+        method:"get"
+    })
+    .done(function(data){
+        data.forEach(function(arrival) {
+            $(".Busarrival").append(`
+            <article class='busarrvial'>
+            <b>${arrival.BusStopCode}</b><br><br> hello!
+            Date of rental: ${rental.date}<br>
+            Rented by: ${rental.rentedBy}<br><br>
+            <button rid='${rental._id}' class='editBtn'>Edit rental date</button>
+            <aside id='${rental._id}'>
+                <form action='/updateRentalDate' method='post'>
+                <input type='hidden' value='${rental._id}' name='rentalid'>
+                New rental date: <input type='text' name='date'></input><button type='submit'>Update</button>
+                </form>
+            </aside>
+            `);
+        });
+    })
+}
 
 
 

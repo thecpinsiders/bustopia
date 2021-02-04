@@ -3,13 +3,17 @@ var request = require('request');
 var schema = mongoose.Schema;
 var eventSchema = {};
 var organizerSchema = {};
-var eventModel, organizerModel;
+var servicesSchema = {};
+var userSchema = {};
+var favserviceSchema = {};
+var favstopSchema = {};
+var eventModel, organizerModel, serviceModel, userModel, favserviceModel, favstopModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
-
+mongoose.set('debug',true);
 
 var database = {
     connect: function () {
@@ -131,6 +135,10 @@ var database = {
     getEvent: function (id, callback) {
         eventModel.findById(id, callback);
     },
+    getBusArrival:function(busstopcode,callback){
+        // serviceModel.findById(id, callback);
+        serviceModel.findOne({ BusStopCode: busstopcode }, callback);
+    },
     updateEvent: function (id, n, d, sd, st, ed, et, callback) {
         var updatedEvent = {
             name: n,
@@ -146,9 +154,7 @@ var database = {
         };
         eventModel.findByIdAndUpdate(id, updatedEvent, callback);
     },
-    getBusArrival: function (bscode, callback) {
-        serviceModel.findOne({BusStopCode: bscode}, callback);
-    },
+
     deleteEvent: function (id, callback) {
         eventModel.findByIdAndDelete(id, callback);
     },

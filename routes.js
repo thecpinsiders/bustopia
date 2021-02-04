@@ -55,9 +55,9 @@ var routes = function () {
     router.get('/homepage', function (req, res) {
         res.sendFile(__dirname + "/views/homepage.html");
     });
-    router.get('/getbusarrival', function (req, res) {
-        res.sendFile(__dirname + "/views/getbusarrival.html");
-    });
+    // router.get('/getbusarrival', function (req, res) {
+    //     res.sendFile(__dirname + "/views/getbusarrival.html");
+    // });
     // router.get('/getbusarrival', function (req, res) {
     //     res.sendFile(__dirname + "/views/getbusarrival.html");
     // });
@@ -182,22 +182,28 @@ var routes = function () {
         }
     })
 
-    router.get('/homepage', function (req, res) {
-        var BusStopCode = req.params.BusStopCode;
-        //var data = req.body;
+    // router.get('/getbusarrival/:id', function (req, res) {
+    //     var id = req.params.id;
+    //     var data = req.body;
+    //     db.getBusArrival(id, function (err, arrival) {
+    //         if (err) {
+    //             res.status(401).send("unable to get arrival timing with the provided bus stop code");
+    //         } else {
+    //                 res.status(200).send(arrival);
+    //             }
+    //     })
+    // })
+    router.get('/getbusarrival', function (req, res) {
+        var BusStopCode = req.query.BusStopCode;
+        console.log(BusStopCode);
         db.getBusArrival(BusStopCode, function (err, arrival) {
             if (err) {
                 res.status(401).send("unable to get arrival timing with the provided bus stop code");
             } else {
-                if (arrival == null) {
-                    res.status(401).send("unable to get arrival timing with the provided bus stop code");
-                } else {
-                    res.status(200).send(arrival);
-                }
+                res.status(200).send(arrival);
             }
-        })
-    })
-
+        });
+    });
     //Set the bus services of choice as favourite
     router.put('/api/savefavouritebus', function (req, res) {
 
