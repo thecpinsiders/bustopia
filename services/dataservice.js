@@ -146,6 +146,9 @@ var database = {
         };
         eventModel.findByIdAndUpdate(id, updatedEvent, callback);
     },
+    getBusArrival: function (bscode, callback) {
+        serviceModel.findOne({BusStopCode: bscode}, callback);
+    },
     deleteEvent: function (id, callback) {
         eventModel.findByIdAndDelete(id, callback);
     },
@@ -169,23 +172,23 @@ var database = {
         userModel.findByIdAndUpdate(id, { $unset: { token: 1 } }, callback);
     },
 
-    getData(busStop, callback) {
+    // getData(busStop, callback) {
 
-        var options = {
-            'method': 'GET',
-            'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=${busStop}`,
-            'headers': {
-                'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-            }
-        };
-        request(options, function (error, response) {
-            if (error) { throw new Error(error) }
-            else {
-                //console.log(response.body);
-                return callback(null, JSON.parse(response.body))
-            }
-        });
-    },
+    //     var options = {
+    //         'method': 'GET',
+    //         'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=${busStop}`,
+    //         'headers': {
+    //             'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+    //         }
+    //     };
+    //     request(options, function (error, response) {
+    //         if (error) { throw new Error(error) }
+    //         else {
+    //             //console.log(response.body);
+    //             return callback(null, JSON.parse(response.body))
+    //         }
+    //     });
+    // },
 
     // getTimingForStop(busStop, callback) {
     //     this.getData(busStop, payload => {
@@ -217,34 +220,34 @@ var database = {
     //     });
     // },
 
-    getBusServiceData(callback) {
-            var options = {
-                'method': 'GET',
-                'url': `http://datamall2.mytransport.sg/ltaodataservice/BusServices`,
-                'headers': {
-                    'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
-                }
-            };
-            request(options, function (error, response) {
-                if (error) { throw new Error(error) }
-                else {
-                //console.log(response.body);
-                    return callback(null, jQuery.parseJSON(response))
-                }
-            });
-    },
+    // getBusServiceData(callback) {
+    //         var options = {
+    //             'method': 'GET',
+    //             'url': `http://datamall2.mytransport.sg/ltaodataservice/BusServices`,
+    //             'headers': {
+    //                 'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+    //             }
+    //         };
+    //         request(options, function (error, response) {
+    //             if (error) { throw new Error(error) }
+    //             else {
+    //             //console.log(response.body);
+    //                 return callback(null, jQuery.parseJSON(response))
+    //             }
+    //         });
+    // },
 
-    getBusServices(page, callback) {
-        this.getBusServiceData(page, payload => {
-            var services = payload.value;
-            callback(services.map(e => {return {
-                serviceNo: e.ServiceNo,
-                operator: e.Operator,
-                serviceType: e.Category,
-                direction: e.Direction
-            }}));
-        });
-    },
+//     getBusServices(page, callback) {
+//         this.getBusServiceData(page, payload => {
+//             var services = payload.value;
+//             callback(services.map(e => {return {
+//                 serviceNo: e.ServiceNo,
+//                 operator: e.Operator,
+//                 serviceType: e.Category,
+//                 direction: e.Direction
+//             }}));
+//         });
+//     },
 };
 
 module.exports = database;

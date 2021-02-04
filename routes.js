@@ -1,5 +1,6 @@
 var bodyParser = require('body-parser');
 var crypto = require('crypto');
+var cors = require('cors')
 var request = require('request');
 var db = require('./services/dataservice.js');
 
@@ -11,6 +12,8 @@ var routes = function () {
     router.use(bodyParser.urlencoded({
         extended: true
     }));
+
+    router.use(cors())
 
     router.use(function (req, res, next) {
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
@@ -51,6 +54,9 @@ var routes = function () {
     });
     router.get('/homepage', function (req, res) {
         res.sendFile(__dirname + "/views/homepage.html");
+    });
+    router.get('/getbusarrival', function (req, res) {
+        res.sendFile(__dirname + "/views/getbusarrival.html");
     });
     // router.get('/getbusarrival', function (req, res) {
     //     res.sendFile(__dirname + "/views/getbusarrival.html");
@@ -176,6 +182,22 @@ var routes = function () {
         }
     })
 
+    router.get('/homepage', function (req, res) {
+        var BusStopCode = req.params.BusStopCode;
+        //var data = req.body;
+        db.getBusArrival(BusStopCode, function (err, arrival) {
+            if (err) {
+                res.status(401).send("unable to get arrival timing with the provided bus stop code");
+            } else {
+                if (arrival == null) {
+                    res.status(401).send("unable to get arrival timing with the provided bus stop code");
+                } else {
+                    res.status(200).send(arrival);
+                }
+            }
+        })
+    })
+
     //Set the bus services of choice as favourite
     router.put('/api/savefavouritebus', function (req, res) {
 
@@ -205,45 +227,48 @@ var routes = function () {
     })
 
 
-    //Search for Bus Route via service number e.g 190.
-    router.post('/getserviceroute', function (req, res) {
-        var data = req.body;
-        db.getData(data.BusNumber, function (err, service) {
-            if (err) {
-                //console.log(service);
-                console.log(data.service);
-                res.status(500).send("Unable to get bus number information");
-            } else {
-                res.status(200).send(service);
-            }
-        })
-    })
+    // //Search for Bus Route via service number e.g 190.
+    // router.post('/getserviceroute', function (req, res) {
+    //     var data = req.body;
+    //     db.getData(data.BusNumber, function (err, service) {
+    //         if (err) {
+    //             //console.log(service);
+    //             console.log(data.service);
+    //             res.status(500).send("Unable to get bus number information");
+    //         } else {
+    //             res.status(200).send(service);
+    //         }
+    //     })
+    // })
 
-    router.post('/getbusarrival', function (req, res) {
-        var data = req.body;
-        db.getData(data.BusStopCode, function (err, service) {
-            if (err) {
-                //console.log(service);
-                console.log(data.service);
-                res.status(500).send("Unable to get bus arrival information");
-            } else {
-                res.status(200).send(service);
-            }
-        })
-    })
+    // router.post('/homepage', function (req, res) {
+    //     var data = req.body;
+    //     db.getData(data.BusStopCode, function (err, service) {
+    //         if (err) {
+    //             //console.log(service);
+    //             console.log(data.service);
+    //             res.status(500).send("Unable to get bus arrival information");
+    //         } else {
+    //             console.log(service);
+    //             // console.log(service.Services);
+    //             //console.log(service.NextBus);
+    //             res.status(200).send(JSON.stringify(service));
+    //         }
+    //     })
+    // })
 
-    router.get('/getbusservices', function (req, res) {
-        //var data = req.body;
-        db.getBusServices(function (err, service) {
-            if (err) {
-                //console.log(service);
-                //console.log(data.service);
-                res.status(500).send("Unable to get bus service information");
-            } else {
-                res.status(200).send(service);
-            }
-        })
-    })
+    // router.get('/getbusservices', function (req, res) {
+    //     //var data = req.body;
+    //     db.getBusServices(function (err, service) {
+    //         if (err) {
+    //             //console.log(service);
+    //             //console.log(data.service);
+    //             res.status(500).send("Unable to get bus service information");
+    //         } else {
+    //             res.status(200).send(service);
+    //         }
+    //     })
+    // })
 
     return router;
 };

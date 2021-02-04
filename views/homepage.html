@@ -18,7 +18,7 @@
 
     <section>
         <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
-        <form action="getbusarrival" method="POST"> 
+        <form onsubmit="return getbusarrival();" method="GET"> 
             <label for="BusStopCode">Bus stop Number:</label>
             <input type="text" id="BusStopCode" name="BusStopCode"><br>
             <input type="submit" value="Submit">
