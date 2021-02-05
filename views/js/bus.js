@@ -15,6 +15,24 @@ function getbusarrival() {
     })
         .done(function (data) {
             $('.bsc').text(data.BusStopCode);
+            var i;
+            for (i = 0; i < data.Services.length; ++i) {
+                $(".info").append(`
+                    <article>
+                    <h2>${data.Services[i].ServiceNo}</h2>
+                    <div>
+                        Bus Service:${data.Services[i].ServiceNo}<br>
+                        Bus Operator: ${data.Services[i].Operator}<br>
+                        Bus origin code: ${data.Services[i].NextBus.OriginCode}<br>
+                        Bus Destination code: ${data.Services[i].NextBus.DestinationCode}<br>
+                        Arrival timing: ${data.Services[i].NextBus.EstimatedArrival}<br>
+                        Visit number: ${data.Services[i].NextBus.VisitNumber}<br>
+                        Bus load: ${data.Services[i].NextBus.Load}<br>
+                        Bus Type: ${data.Services[i].NextBus.Type}<br>
+                    </div>
+                    </article>
+                `);
+            }
         })
         .fail(function (err) {
             console.log(err.responseText);

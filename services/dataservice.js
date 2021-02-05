@@ -135,9 +135,26 @@ var database = {
     getEvent: function (id, callback) {
         eventModel.findById(id, callback);
     },
+    // getBusArrival: function (busstopcode, callback) {
+    //     // serviceModel.findById(id, callback);
+    //     serviceModel.findOne({ BusStopCode: busstopcode }, callback);
+    // },
+
     getBusArrival: function (busstopcode, callback) {
-        // serviceModel.findById(id, callback);
-        serviceModel.findOne({ BusStopCode: busstopcode }, callback);
+        var options = {
+            'method': 'GET',
+            'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=${busstopcode}`,
+            'headers': {
+                'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+            }
+        };
+        request(options, function (error, response) {
+            if (error) { throw new Error(error) }
+            else {
+                //console.log(response.body);
+                return callback(null, JSON.parse(response.body))
+            }
+        });
     },
 
     getAllBusArrivals: function (callback) {
@@ -184,7 +201,6 @@ var database = {
     },
 
     // getData(busStop, callback) {
-
     //     var options = {
     //         'method': 'GET',
     //         'url': `http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=${busStop}`,
