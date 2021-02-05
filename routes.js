@@ -193,7 +193,7 @@ var routes = function () {
     //             }
     //     })
     // })
-    router.get('/getbusarrival', function (req, res) {
+    router.get('/getbusarrival/:BusStopCode', function (req, res) {
         var BusStopCode = req.params.BusStopCode;
         console.log(BusStopCode);
         db.getBusArrival(BusStopCode, function (err, arrival) {

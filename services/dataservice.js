@@ -141,7 +141,6 @@ var database = {
     },
 
     getAllBusArrivals: function (callback) {
-        // serviceModel.findById(id, callback);
         serviceModel.find({}, callback);
     },
 

@@ -1,45 +1,20 @@
-// $(document).ready(function () {
-//     // var urlParams = new URLSearchParams(window.location.search);
-//     // eventId = urlParams.get('id');
-//     // alert("HELLOW!");
-//     // $.ajax({
-//     //     url: "/getallbusarrivals",
-//     //     method: "get"
-//     // }).done(
-//     //     function (data) {
-//     //         $('#BusStopCode').val(data.BusStopCode);
-//     //         // $('#description').val(data.description);
-//     //         // $('#startDate').val(data.start.date);
-//     //         // $('#startTime').val(data.start.time);
-//     //         // $('#endDate').val(data.end.date);
-//     //         // $('#endTime').val(data.end.time);
-//     //     }
-//     // ).fail(
-//     //     function (err) {
-//     //         console.log(err.responseText);
-//     //     }
 
 
-//     // var BusStopCode = new URLSearchParams(window.location.search);
-//     // BusStopCode = BusStopCode.get('BusStopCode');
-//     // getbusarrival();
-//     // getallbusarrivals();
-//     // )
-// });
-function getTicker() {
-    var ticker = document.getElementById('#BusStopCode').value;
-}
+$(document).ready(function () {
+    // var BusStopCodeObj = new URLSearchParams(window.location.search);
+    //BusStopCode = BusStopCodeObj.get('BusStopCode');
+
+});
+
 function getbusarrival() {
-    var credentials = {
-        BusStopCode: $("#BusStopCode").val()
-    }
+    var BusStopCode = document.getElementById("BusStopCode").value;
+    // var BusStopCode = $("#BusStopCode").val();
     $.ajax({
-        url: "/getbusarrival" + getTicker().ticker,
-        method: "get",
-        data: credentials
+        url: "/getbusarrival/" + BusStopCode,
+        method: "get"
     })
         .done(function (data) {
-            $('#bs').text(data.BusStopCode);
+            $('.bsc').text(data.BusStopCode);
         })
         .fail(function (err) {
             console.log(err.responseText);
@@ -47,59 +22,6 @@ function getbusarrival() {
         })
     return false;
 }
-
-// function getbusarrival() {
-//     console.log("in function")
-//     $.ajax({
-//         url: "/getbusarrival/" + BusStopCode,
-//         method: "get"
-//     })
-//         .done(function (data) {
-//             data.forEach(function (arrival) {
-//                 $(".busarrival").append(`
-//             <article class='busarrival'>
-//             <b>${arrival.BusStopCode}</b>
-//             </article>
-//             `);
-//             });
-//         }).fail(
-//             function (err) {
-//                 console.log(err.responseText);
-//             }
-//         );
-// }
-
-// function getallbusarrival() {
-//     console.log("in function")
-//     $.ajax({
-//         url: "/getallbusarrivals",
-//         method: "get"
-//     })
-//         .done(function (data) {
-//             data.forEach(function (arrival) {
-//                 $(".busarrival").append(`
-//             <article class='busarrival'>
-//             <b>${arrival.BusStopCode}</b>
-//             </article>
-//             `);
-//             });
-//         }).fail(
-//             function (err) {
-//                 console.log(err.responseText);
-//             }
-//         );
-// }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
