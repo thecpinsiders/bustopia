@@ -17,6 +17,9 @@ function getbusarrival() {
             $('.bsc').text(data.BusStopCode);
             var i;
             for (i = 0; i < data.Services.length; ++i) {
+                var h = new Date(data.Services[i].NextBus.EstimatedArrival).getHours();
+                var m = new Date(data.Services[i].NextBus.EstimatedArrival).getMinutes();
+                var output = h + ':' + m;
                 $(".info").append(`
                     <article>
                     <h2>${data.Services[i].ServiceNo}</h2>
@@ -25,7 +28,7 @@ function getbusarrival() {
                         Bus Operator: ${data.Services[i].Operator}<br>
                         Bus origin code: ${data.Services[i].NextBus.OriginCode}<br>
                         Bus Destination code: ${data.Services[i].NextBus.DestinationCode}<br>
-                        Arrival timing: ${data.Services[i].NextBus.EstimatedArrival}<br>
+                        Arrival timing: ${output}<br>
                         Visit number: ${data.Services[i].NextBus.VisitNumber}<br>
                         Bus load: ${data.Services[i].NextBus.Load}<br>
                         Bus Type: ${data.Services[i].NextBus.Type}<br>

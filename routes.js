@@ -55,6 +55,9 @@ var routes = function () {
     router.get('/homepage', function (req, res) {
         res.sendFile(__dirname + "/views/homepage.html");
     });
+    router.get('/findbusstop', function (req, res) {
+        res.sendFile(__dirname + "/views/findbusstop.html");
+    });
     // router.get('/getbusarrival', function (req, res) {
     //     res.sendFile(__dirname + "/views/getbusarrival.html");
     // });
@@ -229,9 +232,15 @@ var routes = function () {
 
     })
     //Search for Bus Services by bus stop name e.g Orchard MRT Station
-    router.post('/api/searchstopname', function (req, res) {
-
-    })
+    router.get('/searchstopname', function (req, res) {
+        db.getBusStops(function(err,busstop) {
+            if(err) {
+                res.status(401).send("Unable to get bus stops information");
+            } else {
+                res.status(200).send(busstop);
+            }
+        });
+    });
     //Search for Bus stops via bus stop number
     router.post('/api/searchstopnumber', function (req, res) {
 
