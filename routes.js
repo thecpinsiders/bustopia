@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var cors = require('cors')
 var request = require('request');
 var db = require('./services/dataservice.js');
+var sessionstorage = require('sessionstorage');
 
 db.connect();
 
@@ -48,6 +49,12 @@ var routes = function () {
     });
     router.get('/login', function (req, res) {
         res.sendFile(__dirname + "/views/login.html");
+    });
+    router.get('/saveservice', function (req, res) {
+        res.sendFile(__dirname + "/views/saveFavService.html");
+    });
+    router.get('/savestop', function (req, res) {
+        res.sendFile(__dirname + "/views/saveFavStop.html");
     });
     router.get('/favorites', function (req, res) {
         res.sendFile(__dirname + "/views/favorites.html");
@@ -215,14 +222,28 @@ var routes = function () {
         });
     });
     //Set the bus services of choice as favourite
-    router.put('/api/savefavouritebus', function (req, res) {
-
-    })
+    router.post('/api/savefavouritebus', function (req, res) {
+        var data = req.body;
+        db.addFavService(data.username, data.services, function (err) {
+            if (err) {
+                res.status(401).send("unable to add favourite bus");
+            } else {
+                res.status(200).send("Added Successfully!");
+            }
+        });
+    });
 
     //Set the bus stop of choice as favourite
-    router.put('/api/savefavouritebustop', function (req, res) {
-
-    })
+    router.post('/api/savefavouritebusstop', function (req, res) {
+        var data = req.body;
+        db.addFavStop(data.username, data.BusStopCode, function (err) {
+            if (err) {
+                res.status(401).send("unable to add favourite bus stop");
+            } else {
+                res.status(200).send("Added Successfully!");
+            }
+        });
+    });
 
     //Search bus route via bus number
     router.post('/api/searchbusroute', function (req, res) {

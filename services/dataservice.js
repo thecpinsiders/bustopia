@@ -200,6 +200,24 @@ var database = {
         userModel.findByIdAndUpdate(id, { $unset: { token: 1 } }, callback);
     },
 
+
+
+    addFavService: function (un, service, callback) {
+        var newFavService = new favserviceModel({
+            username: un,
+            services: service
+        });
+        newFavService.save(callback);
+    },
+
+    addFavStop: function (un, stop, callback) {
+        var newFavStop = new favstopModel({
+            username: un,
+            stops: stop
+        });
+        newFavStop.save(callback);
+    },
+
     // getData(busStop, callback) {
     //     var options = {
     //         'method': 'GET',

@@ -10,8 +10,6 @@
     <header>
         <nav>
             <li><a href="/">Home Page</a></li>
-            <li><a href="/saveservice">save service</a></li>
-            <li><a href="/savestop">save stop</a></li>
             <!-- <li><a href="/login">Login</a></li>
             <li><a href="/register">Register</a></li> -->
             <li><a href="#" class="logoutLink">Logout</a></li>
@@ -20,7 +18,7 @@
 
     <section>
         <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
-        <form onsubmit="return getbusarrival()" method="GET">
+        <form onsubmit="return saveFavStop()">
             <label for="BusStopCode">Bus stop Number:</label>
             <input type="text" id="BusStopCode" name="BusStopCode"><br>
             <input type="submit" value="Submit">
@@ -34,7 +32,7 @@
 
     <script src='/js/jquery.min.js'></script>
     <script src="/js/auth.js"></script>
-    <script src="/js/bus.js"></script>
+    <script src="/js/save.js"></script>
 </body>
 
 </html>
