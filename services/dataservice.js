@@ -7,7 +7,8 @@ var servicesSchema = {};
 var userSchema = {};
 var favserviceSchema = {};
 var favstopSchema = {};
-var eventModel, organizerModel, serviceModel, userModel, favserviceModel, favstopModel;
+var busstopSchema = {};
+var eventModel, organizerModel, serviceModel, userModel, favserviceModel, favstopModel,busstopModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -83,7 +84,19 @@ var database = {
                             },
                         }
                     ],
-                })
+                });
+
+                busstopSchema = schema({
+                value: [
+                    {
+                    BusStopCode: String,
+                    RoadName: String,
+                    Description: String,
+                    Latitude: String,
+                    Longitude: String
+                    }
+                 ]
+                });
 
                 userSchema = schema({
                     username: String,
@@ -108,6 +121,7 @@ var database = {
                 userModel = connection.model('users', userSchema);
                 favserviceModel = connection.model('favservices', favserviceSchema);
                 favstopModel = connection.model('favstops', favstopSchema);
+                busstopModel = connection.model('busstop',busstopSchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -156,6 +170,25 @@ var database = {
             }
         });
     },
+
+    getBusStops: function (callback) {
+        var options = {
+            'method': 'GET',
+            'url': `http://datamall2.mytransport.sg/ltaodataservice/BusStops`,
+            'headers': {
+                'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+            }
+        };
+        request(options, function (error, response) {
+            if (error) { throw new Error(error) }
+            else {
+                //console.log(response.body);
+                return callback(null, JSON.parse(response.body))
+            }
+        });
+    },
+
+    
 
     getAllBusArrivals: function (callback) {
         serviceModel.find({}, callback);
