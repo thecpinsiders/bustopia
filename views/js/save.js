@@ -1,5 +1,3 @@
-saveFavService
-
 function saveFavService() {
     var newFavService = {
         services: $("#service").val(),

@@ -18,20 +18,23 @@
 
     <section>
         <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
-        <form onsubmit="return saveFavStop()">
+        <form onsubmit="return saveFavStop(), displaySavedStops()">
             <label for="BusStopCode">Bus stop Number:</label>
-            <input type="text" id="BusStopCode" name="BusStopCode"><br>
+            <input type="text" id="BusStopCode" name="BusStopCode" required><br>
             <input type="submit" value="Submit">
         </form>
     </section>
     <div class="statusMessage"></div>
-    <h1 class="bsc">
-    </h1>
+    <h3 class="infoheader">
+        Saved Stops
+    </h3>
     <section class="info">
+
     </section>
 
     <script src='/js/jquery.min.js'></script>
     <script src="/js/auth.js"></script>
+    <script src="/js/displaySavedStops.js"></script>
     <script src="/js/save.js"></script>
 </body>
 

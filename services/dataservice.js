@@ -8,7 +8,7 @@ var userSchema = {};
 var favserviceSchema = {};
 var favstopSchema = {};
 var busstopSchema = {};
-var eventModel, organizerModel, serviceModel, userModel, favserviceModel, favstopModel,busstopModel;
+var eventModel, organizerModel, serviceModel, userModel, favserviceModel, favstopModel, busstopModel;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -87,15 +87,15 @@ var database = {
                 });
 
                 busstopSchema = schema({
-                value: [
-                    {
-                    BusStopCode: String,
-                    RoadName: String,
-                    Description: String,
-                    Latitude: String,
-                    Longitude: String
-                    }
-                 ]
+                    value: [
+                        {
+                            BusStopCode: String,
+                            RoadName: String,
+                            Description: String,
+                            Latitude: String,
+                            Longitude: String
+                        }
+                    ]
                 });
 
                 userSchema = schema({
@@ -121,7 +121,7 @@ var database = {
                 userModel = connection.model('users', userSchema);
                 favserviceModel = connection.model('favservices', favserviceSchema);
                 favstopModel = connection.model('favstops', favstopSchema);
-                busstopModel = connection.model('busstop',busstopSchema);
+                busstopModel = connection.model('busstop', busstopSchema);
             } else {
                 console.log("Error connecting to Mongo DB");
             }
@@ -188,7 +188,7 @@ var database = {
         });
     },
 
-    
+
 
     getAllBusArrivals: function (callback) {
         serviceModel.find({}, callback);
@@ -251,6 +251,14 @@ var database = {
         newFavStop.save(callback);
     },
 
+    getFavService: function (callback) {
+        favserviceModel.find({}, callback);
+    },
+
+
+    getFavStops: function (callback) {
+        favstopModel.find({}, callback);
+    },
     // getData(busStop, callback) {
     //     var options = {
     //         'method': 'GET',

@@ -254,11 +254,31 @@ var routes = function () {
     })
     //Search for Bus Services by bus stop name e.g Orchard MRT Station
     router.get('/searchstopname', function (req, res) {
-        db.getBusStops(function(err,busstop) {
-            if(err) {
+        db.getBusStops(function (err, busstop) {
+            if (err) {
                 res.status(401).send("Unable to get bus stops information");
             } else {
                 res.status(200).send(busstop);
+            }
+        });
+    });
+
+    router.get('/getfavouriteservices', function (req, res) {
+        db.getFavService(function (err, arrival) {
+            if (err) {
+                res.status(401).send("unable to get favourite bus services");
+            } else {
+                res.status(200).send(arrival);
+            }
+        });
+    });
+
+    router.get('/getfavouritestops', function (req, res) {
+        db.getFavStops(function (err, arrival) {
+            if (err) {
+                res.status(401).send("unable to get favourite bus stops");
+            } else {
+                res.status(200).send(arrival);
             }
         });
     });
