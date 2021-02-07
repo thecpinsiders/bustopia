@@ -18,7 +18,7 @@ function saveFavService() {
 }
 
 function saveFavStop() {
-    var busstopcode = $("#BusStopCode").val();
+    var busstopcode = $("#saveBusStopCode").val();
     var newFavStop = {
         BusStopCode: busstopcode,
         username: sessionStorage.username,

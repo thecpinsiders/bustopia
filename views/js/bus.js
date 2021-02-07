@@ -23,23 +23,23 @@ function getbusarrival() {
                 var h = new Date(data.Services[i].NextBus.EstimatedArrival).getHours();
                 var m = new Date(data.Services[i].NextBus.EstimatedArrival).getMinutes();
 
-                if(data.Services[i].NextBus.Load == "SEA"){
-                     load = "Seat Available";
+                if (data.Services[i].NextBus.Load == "SEA") {
+                    load = "Seat Available";
                 }
-                else if(data.Services[i].NextBus.Load == "SDA"){
-                    load =  "Standing Available";
-                }else{
+                else if (data.Services[i].NextBus.Load == "SDA") {
+                    load = "Standing Available";
+                } else {
                     load = "Limited Standing";
                 }
 
-                if(data.Services[i].NextBus.type == "SD"){
+                if (data.Services[i].NextBus.type == "SD") {
                     type = "Single Deck";
-               }
-               else if(data.Services[i].NextBus.type == "DD"){
-                     type =  "Double Deck";
-               }else{
+                }
+                else if (data.Services[i].NextBus.type == "DD") {
+                    type = "Double Deck";
+                } else {
                     type = "Bendy";
-               }
+                }
                 var output = h + ':' + m;
                 $(".info").append(`
                     <article>

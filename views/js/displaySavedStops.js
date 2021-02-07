@@ -15,7 +15,11 @@ function displaySavedStops() {
                     $(".infoheader").show();
                 }
                 data.forEach(function (favstop) {
-                    $(".info").append(`<li>${favstop.stops}</li>`);
+                    $(".info").append(`
+        <form onsubmit="return getbusarrival()">
+            <li id="BusStopCode" value="${favstop.stops}">${favstop.stops}</li>
+            <input type="submit" value="Submit">
+        </form>`);
                 });
             }
         )
