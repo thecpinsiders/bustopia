@@ -11,6 +11,7 @@ function displaySavedStops() {
             function (data) {
                 if (data.length > 0) {
                     $(".info").show();
+                    $(".info").empty().append();
                     $(".infoheader").show();
                 }
                 data.forEach(function (favstop) {

@@ -1,17 +1,18 @@
 <html>
 
 <head>
-    <title>Bustopia Find Bus Stop</title>
+    <title>Bustopia - Find Bus Stop</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <h1>Login</h1>
+    <h1>Bustopia Find Bus Stop</h1>
     <header>
         <nav>
-            <li><a href="/">Home Page</a></li>
-            <!-- <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li> -->
+            <li><a href="/homepage">Home Page</a></li>
+            <li><a href="/findbusinfo">Bus Information</a></li>
+            <li><a href="/saveservice">Favourite Service</a></li>
+            <li><a href="/savestop">Favorite Bus Stop</a></li>
             <li><a href="#" class="logoutLink">Logout</a></li>
         </nav>
     </header>
@@ -19,7 +20,7 @@
     <section>
         <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
         <form onsubmit="return getbusstop()" method="GET">
-            <label for="BusStopCode">Bus stop Name:</label>
+            <label for="BusStopCode">Enter Bus stop Name:</label>
             <input type="text" id="BusStopName" name="BusStopName"><br>
             <input type="submit" value="Submit">
         </form>
