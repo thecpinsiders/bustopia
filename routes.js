@@ -65,6 +65,9 @@ var routes = function () {
     router.get('/findbusstop', function (req, res) {
         res.sendFile(__dirname + "/views/findbusstop.html");
     });
+    router.get('/findbusinfo', function (req, res) {
+        res.sendFile(__dirname + "/views/busserviceinfo.html");
+    });
     // router.get('/getbusarrival', function (req, res) {
     //     res.sendFile(__dirname + "/views/getbusarrival.html");
     // });
@@ -268,8 +271,14 @@ var routes = function () {
     })
 
     //View Bus Service information like First bus,Last bus and what operator operates that bus service
-    router.get('/api/getserviceinfo', function (req, res) {
-
+    router.get('/getserviceinfo', function (req, res) {
+        db.getBusInfo(function(err,busstop) {
+            if(err) {
+                res.status(401).send("Unable to get bus service information");
+            } else {
+                res.status(200).send(busstop);
+            }
+        });
     })
 
 
