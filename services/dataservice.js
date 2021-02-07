@@ -189,6 +189,23 @@ var database = {
     },
 
 
+    getBusInfo: function (callback) {
+        var options = {
+            'method': 'GET',
+            'url': `http://datamall2.mytransport.sg/ltaodataservice/BusRoutes`,
+            'headers': {
+                'AccountKey': 'b+8pVHKwRkyLKABbXVxmpQ=='
+            }
+        };
+        request(options, function (error, response) {
+            if (error) { throw new Error(error) }
+            else {
+                //console.log(response.body);
+                return callback(null, JSON.parse(response.body))
+            }
+        });
+    },
+    
 
     getAllBusArrivals: function (callback) {
         serviceModel.find({}, callback);

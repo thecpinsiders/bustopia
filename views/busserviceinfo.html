@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>Bustopia Bus Service Information</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <h1>Login</h1>
+    <header>
+        <nav>
+            <li><a href="/">Home Page</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="#" class="logoutLink">Logout</a></li>
+        </nav>
+    </header>
+
+    <section>
+        <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
+        <form onsubmit="return getbusinfo() " method="GET">
+            <label for="BusStopCode">Bus Service Number:</label>
+            <input type="text" id="BusService" name="BusService" required><br>
+            <input type="submit" value="Submit">
+        </form>
+    </section>
+    <section class="info">
+
+    </section>
+    <section class="info2">
+
+    </section>
+    <script src='/js/jquery.min.js'></script>
+    <script src="/js/busserviceinfo.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+
+</html>
