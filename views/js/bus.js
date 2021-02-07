@@ -14,11 +14,32 @@ function getbusarrival() {
         method: "get"
     })
         .done(function (data) {
+            $(".info").empty().append(data);
             $('.bsc').text(data.BusStopCode);
             var i;
+            var load;
+            var type;
             for (i = 0; i < data.Services.length; ++i) {
                 var h = new Date(data.Services[i].NextBus.EstimatedArrival).getHours();
                 var m = new Date(data.Services[i].NextBus.EstimatedArrival).getMinutes();
+
+                if(data.Services[i].NextBus.Load == "SEA"){
+                     load = "Seat Available";
+                }
+                else if(data.Services[i].NextBus.Load == "SDA"){
+                    load =  "Standing Available";
+                }else{
+                    load = "Limited Standing";
+                }
+
+                if(data.Services[i].NextBus.type == "SD"){
+                    type = "Single Deck";
+               }
+               else if(data.Services[i].NextBus.type == "DD"){
+                     type =  "Double Deck";
+               }else{
+                    type = "Bendy";
+               }
                 var output = h + ':' + m;
                 $(".info").append(`
                     <article>
@@ -30,11 +51,11 @@ function getbusarrival() {
                         Bus Destination code: ${data.Services[i].NextBus.DestinationCode}<br>
                         Arrival timing: ${output}<br>
                         Visit number: ${data.Services[i].NextBus.VisitNumber}<br>
-                        Bus load: ${data.Services[i].NextBus.Load}<br>
-                        Bus Type: ${data.Services[i].NextBus.Type}<br>
+                        Bus load: ${load}<br>
+                        Bus Type: ${type}<br>
                     </div>
                     </article>
-                `);
+                `)
             }
         })
         .fail(function (err) {
@@ -44,149 +65,23 @@ function getbusarrival() {
     return false;
 }
 
+function isNumberKey(evt, obj) {
+    var LIMIT = 5;
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    var txt = obj.value.length;
+    if ((txt == LIMIT) && (charCode == 8)) {
+        obj.value = obj.value.toString().substring(0, txt - 1);
+    }
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    else {
+        if (txt < LIMIT) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
 
 
-
-// var eventId = 0;
-// $(document).ready(function() {
-//     var urlParams = new URLSearchParams(window.location.search);
-//     eventId = urlParams.get('id');
-
-//     $.ajax({
-//         url: "/getbusarrival",
-//         method: "POST"
-//         //add in parameter here
-//     }).done(
-//         function (data) {
-//             alert(data);
-//             data.Services.foreach(function(service) {
-//                 $(".Busarrival").append(`
-//                     <article>
-//                     <h2>${service.ServiceNo}</h2>
-//                     <div>
-//                         Bus Service:${data.Services.ServiceNo}<br>
-//                         Bus Operator: ${data.Services.Operator}<br>
-//                         Bus origin code: ${data.Services.NextBus.OriginCode}<br>
-//                         Bus Destination code: ${data.Services.NextBus.DestinationCode}<br>
-//                         Arrival timing: ${data.Services.NextBus.EstimatedArrival}<br>
-//                         Visit number: ${data.Services.NextBus.VisitNumber}<br>
-//                         Bus load: ${data.Services.NextBus.Load}<br>
-//                         Bus Type: ${data.Services.NextBus.Type}<br>
-//                     </div>
-//                     </article>
-//                 `);
-//             });
-//             // $(".busstopcode").text(data.BusStopCode);            
-//             // $(".serviceno").val(data.Services.ServiceNo);
-//             // $('.operator').val(data.Services.Operator);
-//             // $('.nextbusorigincode').val(data.Services.NextBus.OriginCode);
-//             // $('.nextbusdestinationcode').val(data.Services.NextBus.DestinationCode);
-//             // $('.nextbusestimatedarrival').val(data.Services.NextBus.EstimatedArrival);
-//             // $('.nextbuslongitude').val(data.Services.NextBus.Longitude);
-//             // $('.nextbusvisitnumber').val(data.Services.NextBus.VisitNumber);
-//             // $('.nextbusload').val(data.Services.NextBus.Load);
-//             // $('.nextbusfeature').val(data.Services.NextBus.Feature);
-//             // $('.nextbustype').val(data.Services.NextBus.Type);
-//             // $('.nextbus2origincode').val(data.Services.NextBus2.OriginCode);
-//             // $('.nextbus2destinationcode').val(data.Services.NextBus2.DestinationCode);
-//             // $('.nextbus2estimatedarrival').val(data.Services.NextBus2.EstimatedArrival);
-//             // $('.nextbus2longitude').val(data.Services.NextBus2.Longitude);
-//             // $('.nextbus2visitnumber').val(data.Services.NextBus2.VisitNumber);
-//             // $('.nextbus2load').val(data.Services.NextBus2.Load);
-//             // $('.nextbus2feature').val(data.Services.NextBus2.Feature);
-//             // $('.nextbus2type').val(data.Services.NextBus2.Type);
-//             // $('.nextbus3origincode').val(data.Services.NextBus3.OriginCode);
-//             // $('.nextbus3destinationcode').val(data.Services.NextBus3.DestinationCode);
-//             // $('.nextbus3estimatedarrival').val(data.Services.NextBus3.EstimatedArrival);
-//             // $('.nextbus3longitude').val(data.Services.NextBus3.Longitude);
-//             // $('.nextbus3visitnumber').val(data.Services.NextBus3.VisitNumber);
-//             // $('.nextbus3load').val(data.Services.NextBus3.Load);
-//             // $('.nextbus3feature').val(data.Services.NextBus3.Feature);
-//             // $('.nextbus3type').val(data.Services.NextBus3.Type);
-//         }
-//     ).fail(
-//         function (err) {
-//             console.log(err.responseText);
-//         }
-//     );
-
-
-// function getbusarrival() {
-//     var newBusStop = {
-//         BusStopCode: $("#BusStopCode").val(),
-//         Services :[
-//             {
-//             ServiceNo: $("#ServiceNo").val(),
-//             Operator: $("#Operator").val(),
-//             NextBus: {
-//                 OriginCode: $("#OriginCode").val(),
-//                 DestinationCode: $("#DestinationCode").val(),
-//                 EstimatedArrival: $("#EstimatedArrival").val(),
-//                 Latitude: $("#Latitude").val(),
-//                 Longitude: $("#Longitude").val(),
-//                 VisitNumber: $("#VisitNumber").val(),
-//                 Load: $("#Load").val(),
-//                 Feature: $("#Feature").val(),
-//                 Type: $("#Type").val(),
-//             },
-//             NextBus2: {
-//                 OriginCode: $("#OriginCode").val(),
-//                 DestinationCode: $("#DestinationCode").val(),
-//                 EstimatedArrival: $("#EstimatedArrival").val(),
-//                 Latitude: $("#Latitude").val(),
-//                 Longitude: $("#Longitude").val(),
-//                 VisitNumber: $("#VisitNumber").val(),
-//                 Load: $("#Load").val(),
-//                 Feature: $("#Feature").val(),
-//                 Type: $("#Type").val(),
-//             },
-//             NextBus3: {
-//                 OriginCode: $("#OriginCode").val(),
-//                 DestinationCode: $("#DestinationCode").val(),
-//                 EstimatedArrival: $("#EstimatedArrival").val(),
-//                 Latitude: $("#Latitude").val(),
-//                 Longitude: $("#Longitude").val(),
-//                 VisitNumber: $("#VisitNumber").val(),
-//                 Load: $("#Load").val(),
-//                 Feature: $("#Feature").val(),
-//                 Type: $("#Type").val(),
-//             },
-//         },
-//         ],
-//     };
-
-//     $.ajax({
-//         url:"/events?token="+sessionStorage.authToken,
-//         method:"POST",
-//         data: newEvent
-//     })
-//     .done(function(data){
-//         $(".statusMessage").text(data);
-//         setTimeout(function(){
-//             location.reload();
-//         },3000);
-//     })
-//     .fail(function(err){
-//         $(".statusMessage").text("Unable to add new event");
-//     })
-//     return false;
-// }
-
-// //     $(".deleteEventBtn").on('click', function() {
-// //         $.ajax(
-// //             {
-// //                 url: '/events/'+eventId+"?token="+sessionStorage.authToken,
-// //                 method: 'delete'
-// //             }
-// //         ).done(
-// //             function (data) {
-// //                 alert("Event deleted!");
-// //                 window.location.href = "/";
-// //             }
-// //         ).fail(
-// //             function (err) {
-// //                 console.log(err.responseText);
-// //             }
-// //         );
-// //     });
-// });

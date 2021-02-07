@@ -9,7 +9,7 @@
     <h1>Login</h1>
     <header>
         <nav>
-            <li><a href="/">Home Page</a></li>
+            <li><a href="/homepage">Home Page</a></li>
             <li><a href="/saveservice">save service</a></li>
             <li><a href="/savestop">save stop</a></li>
             <!-- <li><a href="/login">Login</a></li>
@@ -22,7 +22,7 @@
         <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
         <form onsubmit="return getbusarrival()" method="GET">
             <label for="BusStopCode">Bus stop Number:</label>
-            <input type="text" id="BusStopCode" name="BusStopCode"><br>
+            <input type="text" onkeypress="return isNumberKey(event,this)" required id="BusStopCode"  name="BusStopCode"><br>
             <input type="submit" value="Submit">
         </form>
     </section>
