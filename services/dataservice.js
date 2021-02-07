@@ -205,7 +205,7 @@ var database = {
             }
         });
     },
-    
+
 
     getAllBusArrivals: function (callback) {
         serviceModel.find({}, callback);
@@ -272,9 +272,12 @@ var database = {
         favserviceModel.find({}, callback);
     },
 
-
     getFavStops: function (callback) {
         favstopModel.find({}, callback);
+    },
+
+    deleteFavService: function (id, callback) {
+        favserviceModel.findByIdAndDelete(id, callback);
     },
     // getData(busStop, callback) {
     //     var options = {
