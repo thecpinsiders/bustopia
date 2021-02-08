@@ -1,12 +1,18 @@
 <html>
 
 <head>
-    <title>Bustopia - Bus Service Information</title>
+    <title>Bustopia - View Profile Page</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <h1>Bustopia Bus Service Information</h1>
+    <h1>Profile</h1>
+    <style>
+        .authrequired,
+        .authnotrequired {
+            display: none;
+        }
+    </style>
     <header>
         <nav>
             <li>
@@ -14,6 +20,9 @@
                 </li>
             <li>
                 <section class="authrequired"><a href="#" class="logoutLink" id="logout">Logout</a></section>
+                </li>
+                <li>
+                    <section class="authrequired"><a href="/homepage">Profile</a></section>
                 </li>
             <li>
                 <section class="authrequired"><a href="/homepage">Home Page</a></section>
@@ -32,26 +41,16 @@
             </li>
         </nav>
     </header>
-
-    <section>
-        <!-- ****not form action! is form onsubmit the method we defined in bus.js**** -->
-        <form onsubmit="return getbusinfo() " method="GET">
-            <label for="BusStopCode">Enter Bus Service Number:</label>
-            <input type="text" id="BusService" name="BusService" required><br>
-            <input type="submit" value="Submit">
-        </form>
-    </section>
-    <section class="info">
+    <h2>View Profile</h2>
+    
+    <section class="user">
 
     </section>
-    <section class="info2">
 
-    </section>
-    <div class="statusMessage"></div>  
     <script src='/js/jquery.min.js'></script>
-    <script src="/js/index.js"></script>
-    <script src="/js/busserviceinfo.js"></script>
-    <script src="/js/auth.js"></script>
+    <script src='/js/auth.js'></script>
+    <script src='/js/index.js'></script>
+    <script src='js/viewprofile.js'></script>
 </body>
 
 </html>

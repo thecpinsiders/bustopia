@@ -128,31 +128,17 @@ var database = {
         })
     },
 
-    getAllEvents: function (callback) {
-        eventModel.find({}, callback);
+    getUser: function(id, callback){
+        userModel.findById(id, callback);
     },
-    addEvent: function (n, d, sd, st, ed, et, callback) {
-        var newEvent = new eventModel({
-            name: n,
-            description: d,
-            start: {
-                date: sd,
-                time: st
-            },
-            end: {
-                date: ed,
-                time: et
-            }
-        });
-        newEvent.save(callback);
-    },
-    getEvent: function (id, callback) {
-        eventModel.findById(id, callback);
-    },
-    // getBusArrival: function (busstopcode, callback) {
-    //     // serviceModel.findById(id, callback);
-    //     serviceModel.findOne({ BusStopCode: busstopcode }, callback);
-    // },
+        //update user pass by id
+        updateUserpass: function (id,pass,callback) {
+            var updatedUser = {
+                password: pass
+    
+            };
+            userModel.findByIdAndUpdate(id, updatedUser, callback);
+        },
 
     getBusArrival: function (busstopcode, callback) {
         var options = {
