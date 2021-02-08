@@ -10,7 +10,7 @@ function getbusarrival() {
     var BusStopCode = document.getElementById("BusStopCode").value;
     // var BusStopCode = $("#BusStopCode").val();
     $.ajax({
-        url: "/getbusarrival/" + BusStopCode,
+        url: "/getbusarrival/" + BusStopCode + "?token="+sessionStorage.authToken,
         method: "get"
     })
         .done(function (data) {

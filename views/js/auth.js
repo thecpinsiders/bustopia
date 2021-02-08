@@ -34,7 +34,6 @@ function login() {
             $(".statusMessage").text(data.message);
             sessionStorage.authToken = data.token;
             sessionStorage.Id=data.Id;
-            console.log(data.Id);
             sessionStorage.username = $("#username").val();
             window.location.href = "/homepage";
         })

@@ -4,7 +4,7 @@ function saveFavService() {
         username: sessionStorage.username,
     }
     $.ajax({
-        url: "/savefavouritebus",
+        url: "/savefavouritebus?token="+sessionStorage.authToken,
         method: "post",
         data: newFavService
     })
@@ -24,7 +24,7 @@ function saveFavStop() {
         username: sessionStorage.username,
     }
     $.ajax({
-        url: "/savefavouritebusstop",
+        url: "/savefavouritebusstop?token="+sessionStorage.authToken,
         method: "post",
         data: newFavStop
     })

@@ -6,7 +6,7 @@ $(document).ready(function () {
 function getbusstop() {
     var BusStopName = document.getElementById("BusStopName").value;
     $.ajax({
-        url: "/searchstopname",
+        url: "/searchstopname?token="+sessionStorage.authToken,
         method: "get"
     })
         .done(function (data) {

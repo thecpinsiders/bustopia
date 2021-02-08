@@ -24,6 +24,7 @@ var routes = function () {
             || (req.method == "POST" && req.url.includes("/savefavouritebus"))
             || (req.method == "POST" && req.url.includes("/savefavouritebusstop"))) {
             var token = req.query.token;
+            console.log(token);
             if (token == undefined) {
                 res.status(401).send("Please check if you are logged in before using this feature.");
             } else {
@@ -107,7 +108,7 @@ var routes = function () {
                     var strToHash = user.username + Date.now();
                     var token = crypto.createHash('md5').update(strToHash).digest('hex');
                     db.updateToken(user._id, token, function (err, user) {
-                        res.status(200).json({ 'message': 'Login successful.', 'token': token ,'Id': user._id });
+                        res.status(200).json({ 'message': 'Login successful.', 'token': token,'Id': user._id});
                     });
                 }
             }
@@ -130,7 +131,7 @@ var routes = function () {
                 }
             })
         }
-    })
+    });
 
         //get user by id
         router.get('/user/:id', function (req, res) {
@@ -144,7 +145,7 @@ var routes = function () {
                     console.log(user);
                 }
             })
-        })
+        });
         
         //update pass
         router.put('/user', function (req, res) {
@@ -154,7 +155,7 @@ var routes = function () {
                 function (err, user) {
                     res.end();
                 });
-        })
+        });
 
     router.get('/getbusarrival/:BusStopCode', function (req, res) {
         var BusStopCode = req.params.BusStopCode;
@@ -192,10 +193,6 @@ var routes = function () {
         });
     });
 
-    //Search bus route via bus number
-    router.post('/api/searchbusroute', function (req, res) {
-
-    })
     //Search for Bus Services by bus stop name e.g Orchard MRT Station
     router.get('/searchstopname', function (req, res) {
         db.getBusStops(function (err, busstop) {

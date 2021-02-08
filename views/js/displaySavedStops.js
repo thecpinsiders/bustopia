@@ -7,7 +7,7 @@ function displaySavedStops() {
         username: sessionStorage.getItem('username'),
     }
     $.ajax({
-        url: "/getfavouritestops",
+        url: "/getfavouritestops?token="+sessionStorage.authToken,
         method: "post",
         data: credentials
     })

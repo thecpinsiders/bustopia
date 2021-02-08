@@ -4,7 +4,7 @@ $(document).ready(function () {
 function getbusinfo() {
     var BusServiceName = document.getElementById("BusService").value;
     $.ajax({
-        url: "/getserviceinfo",
+        url: "/getserviceinfo?token="+sessionStorage.authToken,
         method: "get"
     })
         .done(function (data) {
