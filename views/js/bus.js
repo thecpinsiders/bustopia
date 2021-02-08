@@ -32,10 +32,10 @@ function getbusarrival() {
                     load = "Limited Standing";
                 }
 
-                if (data.Services[i].NextBus.type == "SD") {
+                if (data.Services[i].NextBus.Type == "SD") {
                     type = "Single Deck";
                 }
-                else if (data.Services[i].NextBus.type == "DD") {
+                else if (data.Services[i].NextBus.Type == "DD") {
                     type = "Double Deck";
                 } else {
                     type = "Bendy";
