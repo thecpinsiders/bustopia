@@ -4,7 +4,7 @@ function saveFavService() {
         username: sessionStorage.username,
     }
     $.ajax({
-        url: "/api/savefavouritebus",
+        url: "/savefavouritebus",
         method: "post",
         data: newFavService
     })
@@ -12,7 +12,7 @@ function saveFavService() {
             $(".statusMessage").text(data);
         })
         .fail(function (err) {
-            $(".statusMessage").text(err);
+            $(".statusMessage").text("Please check if you are logged in before using this feature.");
         })
     return false;
 }
@@ -24,7 +24,7 @@ function saveFavStop() {
         username: sessionStorage.username,
     }
     $.ajax({
-        url: "/api/savefavouritebusstop",
+        url: "/savefavouritebusstop",
         method: "post",
         data: newFavStop
     })
@@ -32,7 +32,7 @@ function saveFavStop() {
             $(".statusMessage").text(data);
         })
         .fail(function (err) {
-            $(".statusMessage").text(err);
+            $(".statusMessage").text("Please check if you are logged in before using this feature.");
         })
     return false;
 }

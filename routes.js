@@ -16,14 +16,20 @@ var routes = function () {
     router.use(function (req, res, next) {
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
         if (req.method == "PUT" || req.method == "DELETE"
-            || (req.method == "POST" && req.url.includes("/events"))) {
+            || (req.method == "GET" && req.url.includes("/getbusarrival"))
+            || (req.method == "GET" && req.url.includes("/getserviceinfo"))
+            || (req.method == "GET" && req.url.includes("/searchstopname"))
+            || (req.method == "POST" && req.url.includes("/getfavouriteservices"))
+            || (req.method == "POST" && req.url.includes("/getfavouritestops"))
+            || (req.method == "POST" && req.url.includes("/savefavouritebus"))
+            || (req.method == "POST" && req.url.includes("/savefavouritebusstop"))) {
             var token = req.query.token;
             if (token == undefined) {
-                res.status(401).send("No tokens are provided. You are not allowed to perform this action.");
+                res.status(401).send("Please check if you are logged in before using this feature.");
             } else {
                 db.checkToken(token, function (err, organizer) {
                     if (err || organizer == null) {
-                        res.status(401).send("[Invalid token] You are not allowed to perform this action.");
+                        res.status(401).send("Unable to perform this action. Please check with the system administrator");
                     } else {
                         //means proceed on with the request.
                         next();
@@ -136,7 +142,7 @@ var routes = function () {
     });
 
     //Set the bus services of choice as favourite
-    router.post('/api/savefavouritebus', function (req, res) {
+    router.post('/savefavouritebus', function (req, res) {
         var data = req.body;
         db.addFavService(data.username, data.services, function (err) {
             if (err) {
@@ -148,7 +154,7 @@ var routes = function () {
     });
 
     //Set the bus stop of choice as favourite
-    router.post('/api/savefavouritebusstop', function (req, res) {
+    router.post('/savefavouritebusstop', function (req, res) {
         var data = req.body;
         db.addFavStop(data.username, data.BusStopCode, function (err) {
             if (err) {
@@ -164,7 +170,7 @@ var routes = function () {
 
     })
     //Search for Bus Services by bus stop name e.g Orchard MRT Station
-    router.post('/searchstopname', function (req, res) {
+    router.get('/searchstopname', function (req, res) {
         db.getBusStops(function (err, busstop) {
             if (err) {
                 res.status(401).send("Unable to get bus stops information");
