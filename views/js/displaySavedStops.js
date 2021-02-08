@@ -3,9 +3,13 @@ $(document).ready(function () {
 })
 
 function displaySavedStops() {
+    var credentials = {
+        username: sessionStorage.getItem('username'),
+    }
     $.ajax({
         url: "/getfavouritestops",
-        method: "get"
+        method: "post",
+        data: credentials
     })
         .done(
             function (data) {

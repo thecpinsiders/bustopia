@@ -268,12 +268,12 @@ var database = {
         newFavStop.save(callback);
     },
 
-    getFavService: function (callback) {
-        favserviceModel.find({}, callback);
+    getFavService: function (un, callback) {
+        favserviceModel.find({ username: un }, callback);
     },
 
-    getFavStops: function (callback) {
-        favstopModel.find({}, callback);
+    getFavStops: function (un, callback) {
+        favstopModel.find({ username: un }, callback);
     },
 
     deleteFavService: function (id, callback) {

@@ -164,7 +164,7 @@ var routes = function () {
 
     })
     //Search for Bus Services by bus stop name e.g Orchard MRT Station
-    router.get('/searchstopname', function (req, res) {
+    router.post('/searchstopname', function (req, res) {
         db.getBusStops(function (err, busstop) {
             if (err) {
                 res.status(401).send("Unable to get bus stops information");
@@ -174,8 +174,9 @@ var routes = function () {
         });
     });
 
-    router.get('/getfavouriteservices', function (req, res) {
-        db.getFavService(function (err, arrival) {
+    router.post('/getfavouriteservices', function (req, res) {
+        var data = req.body;
+        db.getFavService(data.username, function (err, arrival) {
             if (err) {
                 res.status(401).send("unable to get favourite bus services");
             } else {
@@ -184,8 +185,9 @@ var routes = function () {
         });
     });
 
-    router.get('/getfavouritestops', function (req, res) {
-        db.getFavStops(function (err, arrival) {
+    router.post('/getfavouritestops', function (req, res) {
+        var data = req.body;
+        db.getFavStops(data.username, function (err, arrival) {
             if (err) {
                 res.status(401).send("unable to get favourite bus stops");
             } else {
