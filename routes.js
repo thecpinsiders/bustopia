@@ -3,7 +3,6 @@ var crypto = require('crypto');
 var cors = require('cors')
 var request = require('request');
 var db = require('./services/dataservice.js');
-var sessionstorage = require('sessionstorage');
 
 db.connect();
 
@@ -13,8 +12,6 @@ var routes = function () {
     router.use(bodyParser.urlencoded({
         extended: true
     }));
-
-    router.use(cors())
 
     router.use(function (req, res, next) {
         //only check for token if it is PUT, DELETE methods or it is POSTING to events
@@ -41,9 +38,7 @@ var routes = function () {
     router.get('/', function (req, res) {
         res.sendFile(__dirname + "/views/index.html");
     });
-    // router.get('/edit', function (req, res) {
-    //     res.sendFile(__dirname + "/views/editEvent.html");
-    // });
+
     router.get('/register', function (req, res) {
         res.sendFile(__dirname + "/views/register.html");
     });
@@ -68,12 +63,7 @@ var routes = function () {
     router.get('/findbusinfo', function (req, res) {
         res.sendFile(__dirname + "/views/busserviceinfo.html");
     });
-    // router.get('/getbusarrival', function (req, res) {
-    //     res.sendFile(__dirname + "/views/getbusarrival.html");
-    // });
-    // router.get('/getbusarrival', function (req, res) {
-    //     res.sendFile(__dirname + "/views/getbusarrival.html");
-    // });
+
     router.get('/results', function (req, res) {
         res.sendFile(__dirname + "/views/results.html");
     });
@@ -84,70 +74,6 @@ var routes = function () {
     router.get('/js/*', function (req, res) {
         res.sendFile(__dirname + "/views/" + req.originalUrl);
     });
-
-
-
-    // router.get('/events', function (req, res) {
-    //     db.getAllEvents(function (err, events) {
-    //         if (err) {
-    //             res.status(500).send("Unable to get all events.");
-    //         } else {
-    //             res.status(200).send(events);
-    //         }
-    //     })
-    // })
-    // router.get('/events/:id', function (req, res) {
-    //     var id = req.params.id;
-    //     db.getEvent(id, function (err, event) {
-    //         if (err) {
-    //             res.status(500).send("Unable to find an event with this id");
-    //         } else {
-    //             res.status(200).send(event);
-    //         }
-    //     })
-    // })
-    // router.post('/events', function (req, res) {
-    //     var data = req.body;
-    //     db.addEvent(data.name, data.description, data.startDate, data.startTime, data.endDate, data.endTime,
-    //         function (err, event) {
-    //             if (err) {
-    //                 res.status(500).send("Unable to add a new event");
-    //             } else {
-    //                 res.status(200).send("Event has been successfully added!");
-    //             }
-    //         })
-    // });
-
-    // router.put('/events', function (req, res) {
-    //     var data = req.body;
-    //     db.updateEvent(data.id, data.name, data.description, data.startDate, data.startTime, data.endDate, data.endTime,
-    //         function (err, event) {
-    //             if (err) {
-    //                 res.status(500).send("Unable to update the event");
-    //             } else {
-    //                 if (event == null) {
-    //                     res.status(200).send("No event is updated");
-    //                 } else {
-    //                     res.status(200).send("Event has been updated successfully");
-    //                 }
-    //             }
-    //         });
-    // })
-
-    // router.delete('/events/:id', function (req, res) {
-    //     var id = req.params.id;
-    //     db.deleteEvent(id, function (err, event) {
-    //         if (err) {
-    //             res.status(500).send("Unable to delete the event");
-    //         } else {
-    //             if (event == null) {
-    //                 res.status(200).send("No event is deleted");
-    //             } else {
-    //                 res.status(200).send("Event has been deleted successfully");
-    //             }
-    //         }
-    //     });
-    // })
 
     router.post('/register', function (req, res) {
         var data = req.body;
@@ -197,17 +123,6 @@ var routes = function () {
         }
     })
 
-    // router.get('/getbusarrival/:id', function (req, res) {
-    //     var id = req.params.id;
-    //     var data = req.body;
-    //     db.getBusArrival(id, function (err, arrival) {
-    //         if (err) {
-    //             res.status(401).send("unable to get arrival timing with the provided bus stop code");
-    //         } else {
-    //                 res.status(200).send(arrival);
-    //             }
-    //     })
-    // })
     router.get('/getbusarrival/:BusStopCode', function (req, res) {
         var BusStopCode = req.params.BusStopCode;
         console.log(BusStopCode);
@@ -220,15 +135,6 @@ var routes = function () {
         });
     });
 
-    router.get('/getallbusarrivals', function (req, res) {
-        db.getAllBusArrivals(function (err, arrival) {
-            if (err) {
-                res.status(401).send("unable to get arrival timing");
-            } else {
-                res.status(200).send(arrival);
-            }
-        });
-    });
     //Set the bus services of choice as favourite
     router.post('/api/savefavouritebus', function (req, res) {
         var data = req.body;
@@ -303,11 +209,6 @@ var routes = function () {
         });
     });
 
-    //Search for Bus stops via bus stop number
-    router.post('/api/searchstopnumber', function (req, res) {
-
-    })
-
     //View Bus Service information like First bus,Last bus and what operator operates that bus service
     router.get('/getserviceinfo', function (req, res) {
         db.getBusInfo(function (err, busstop) {
@@ -318,50 +219,6 @@ var routes = function () {
             }
         });
     })
-
-
-    // //Search for Bus Route via service number e.g 190.
-    // router.post('/getserviceroute', function (req, res) {
-    //     var data = req.body;
-    //     db.getData(data.BusNumber, function (err, service) {
-    //         if (err) {
-    //             //console.log(service);
-    //             console.log(data.service);
-    //             res.status(500).send("Unable to get bus number information");
-    //         } else {
-    //             res.status(200).send(service);
-    //         }
-    //     })
-    // })
-
-    // router.post('/homepage', function (req, res) {
-    //     var data = req.body;
-    //     db.getData(data.BusStopCode, function (err, service) {
-    //         if (err) {
-    //             //console.log(service);
-    //             console.log(data.service);
-    //             res.status(500).send("Unable to get bus arrival information");
-    //         } else {
-    //             console.log(service);
-    //             // console.log(service.Services);
-    //             //console.log(service.NextBus);
-    //             res.status(200).send(JSON.stringify(service));
-    //         }
-    //     })
-    // })
-
-    // router.get('/getbusservices', function (req, res) {
-    //     //var data = req.body;
-    //     db.getBusServices(function (err, service) {
-    //         if (err) {
-    //             //console.log(service);
-    //             //console.log(data.service);
-    //             res.status(500).send("Unable to get bus service information");
-    //         } else {
-    //             res.status(200).send(service);
-    //         }
-    //     })
-    // })
 
     return router;
 };
