@@ -1,0 +1,62 @@
+[{
+  "_id": {
+    "$oid": "60218661b52246a06cdbcef5"
+  },
+  "username": "jerry",
+  "services": "12",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602186ef30ce32a0b41c3ae0"
+  },
+  "username": "jerry",
+  "services": "123",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602186f230ce32a0b41c3ae1"
+  },
+  "username": "jerry",
+  "services": "307",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602186f430ce32a0b41c3ae2"
+  },
+  "username": "jerry",
+  "services": "72",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6021874a30ce32a0b41c3ae5"
+  },
+  "username": "David",
+  "services": "11",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6021875230ce32a0b41c3ae6"
+  },
+  "username": "David",
+  "services": "300",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6021875630ce32a0b41c3ae7"
+  },
+  "username": "David",
+  "services": "302",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60218a0d30ce32a0b41c3aea"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602247099bc260453c1addcd"
+  },
+  "username": "jemond",
+  "services": "307",
+  "__v": 0
+}]

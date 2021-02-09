@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "411e7a2a-ee8e-4c90-bbe5-619e9ab4b7b3",
+		"name": "Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get name of user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "5ff9e9a8c651bfaa91eeb512",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/5ff9e9a8c651bfaa91eeb512",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5ff9e9a8c651bfaa91eeb512"
+					]
+				},
+				"description": "get username"
+			},
+			"response": []
+		},
+		{
+			"name": "Change password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "5ff9e9a8c651bfaa91eeb512",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				},
+				"description": "change password function"
+			},
+			"response": []
+		},
+		{
+			"name": "Get bus arrival timing",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3000/getbusarrival/44009?token=09fef4fb908b3e8ef4a707c1aa4378cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getbusarrival",
+						"44009"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "09fef4fb908b3e8ef4a707c1aa4378cc"
+						}
+					]
+				},
+				"description": "Getting bus arrival timing from the lta datamall"
+			},
+			"response": []
+		},
+		{
+			"name": "Save favourite bus service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "jerry",
+							"type": "text"
+						},
+						{
+							"key": "services",
+							"value": "69",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/savefavouritebus?token=09fef4fb908b3e8ef4a707c1aa4378cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"savefavouritebus"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "09fef4fb908b3e8ef4a707c1aa4378cc"
+						}
+					]
+				},
+				"description": "save favourite bus service"
+			},
+			"response": []
+		},
+		{
+			"name": "Save favourite bus stop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "jerry",
+							"type": "text"
+						},
+						{
+							"key": "BusStopCode",
+							"value": "44009",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/savefavouritebusstop?token=09fef4fb908b3e8ef4a707c1aa4378cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"savefavouritebusstop"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "09fef4fb908b3e8ef4a707c1aa4378cc"
+						}
+					]
+				},
+				"description": "save favourite bus stop"
+			},
+			"response": []
+		},
+		{
+			"name": "Search for bus stop by name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "jerry",
+							"type": "text"
+						},
+						{
+							"key": "BusStopCode",
+							"value": "44009",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/searchstopname?token=09fef4fb908b3e8ef4a707c1aa4378cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"searchstopname"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "09fef4fb908b3e8ef4a707c1aa4378cc"
+						}
+					]
+				},
+				"description": "search for bus stop by name (function only works in the webpage as it is done in the ajax) but here it will return all fields from the API"
+			},
+			"response": []
+		},
+		{
+			"name": "Get favourite bus services for user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "jerry",
+							"type": "text"
+						},
+						{
+							"key": "BusStopCode",
+							"value": "44009",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/getfavouriteservices?token=09fef4fb908b3e8ef4a707c1aa4378cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getfavouriteservices"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "09fef4fb908b3e8ef4a707c1aa4378cc"
+						}
+					]
+				},
+				"description": "Get favourite bus services for user"
+			},
+			"response": []
+		},
+		{
+			"name": "Get favourite bus stops for user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "jerry",
+							"type": "text"
+						},
+						{
+							"key": "BusStopCode",
+							"value": "44009",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/getfavouritestops?token=09fef4fb908b3e8ef4a707c1aa4378cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getfavouritestops"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "09fef4fb908b3e8ef4a707c1aa4378cc"
+						}
+					]
+				},
+				"description": "Get favourite bus stops for user"
+			},
+			"response": []
+		},
+		{
+			"name": "Get bus service information",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "jerry",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "BusStopCode",
+							"value": "44009",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/getserviceinfo/?token=09fef4fb908b3e8ef4a707c1aa4378cc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"getserviceinfo",
+						""
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "09fef4fb908b3e8ef4a707c1aa4378cc"
+						}
+					]
+				},
+				"description": "Get bus service information from the LTA Datamall API."
+			},
+			"response": []
+		}
+	]
+}

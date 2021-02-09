@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "602186bb30ce32a0b41c3ade"
+  },
+  "username": "jerry",
+  "stops": "44009",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602186f830ce32a0b41c3ae3"
+  },
+  "username": "jerry",
+  "stops": "20251",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602186fc30ce32a0b41c3ae4"
+  },
+  "username": "jerry",
+  "stops": "45369",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6021875a30ce32a0b41c3ae8"
+  },
+  "username": "David",
+  "stops": "20251",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6021875e30ce32a0b41c3ae9"
+  },
+  "username": "David",
+  "stops": "45369",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60218a4c30ce32a0b41c3aeb"
+  },
+  "username": "jerry",
+  "stops": "44009",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "602247169bc260453c1addce"
+  },
+  "username": "jemond",
+  "stops": "45369",
+  "__v": 0
+}]

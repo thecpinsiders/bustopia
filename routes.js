@@ -226,20 +226,20 @@ var routes = function () {
         });
     });
 
-    router.delete('/favouriteservice/:id', function (req, res) {
-        var id = req.params.id;
-        db.deleteFavService(id, function (err, event) {
-            if (err) {
-                res.status(500).send("Unable to delete the service");
-            } else {
-                if (event == null) {
-                    res.status(200).send("No service is deleted");
-                } else {
-                    res.status(200).send("service has been deleted successfully");
-                }
-            }
-        });
-    });
+    // router.delete('/favouriteservice/:id', function (req, res) {
+    //     var id = req.params.id;
+    //     db.deleteFavService(id, function (err, event) {
+    //         if (err) {
+    //             res.status(500).send("Unable to delete the service");
+    //         } else {
+    //             if (event == null) {
+    //                 res.status(200).send("No service is deleted");
+    //             } else {
+    //                 res.status(200).send("service has been deleted successfully");
+    //             }
+    //         }
+    //     });
+    // });
 
     //View Bus Service information like First bus,Last bus and what operator operates that bus service
     router.get('/getserviceinfo', function (req, res) {
